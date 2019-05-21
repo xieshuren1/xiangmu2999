@@ -32,7 +32,7 @@ public class MyController {
                session.setAttribute("user_name",user.getJuesename());
                return "1";
           }catch (Exception e){
-               System.out.println("登录失败");
+               System.out.println("登录失败");//fgfd
           }
           return "0";
      }
