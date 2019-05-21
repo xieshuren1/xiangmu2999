@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class test {
+    int  j=10;
 
     @Autowired
     private YaopinService im;
@@ -20,4 +21,6 @@ public class test {
         SimpleHash hash = new SimpleHash("MD5","123456",bytes,1234);
        System.out.println(hash.toString());
     }
+
+
 }
