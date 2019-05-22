@@ -94,6 +94,17 @@
        
 <script type="text/javascript" src="wenjian_xsr/js_xsr/jquery-3.3.1.js"></script>
 	<script type="text/javascript">
+	 $.ajax({
+         url:"username_sclogintime",
+         data:{
+             
+         },
+         dataType : "json",
+         success:function(da){
+        	 
+         }
+         
+	 })
 	 quanxiancha(0);
 	    function quanxiancha(num){	    	
 	        $.ajax({
@@ -104,9 +115,25 @@
 	            dataType : "json",
 	            success:function(da){
 	            	if(num==0){
-	            		$("#daohang1").html("<li class='active'> <a href=javascript:chuxian('shouye.html')><i class='icon-home'></i>首页</a></li>");
+	            		$("#daohang1").html("<li class='active'> <a href=javascript:chuxian('shouye.html') style='color:blue'><i class='icon-home'></i>首页</a></li>");
 	                    for (i = 0;i < da.length; i++){
-	                         $("#daohang1").append("<li onclick='quanxiancha("+da[i].qid+")'><a href='#apps"+da[i].qid+"' aria-expanded='false' data-toggle='collapse'>"+da[i].text+" </a><ul id='apps"+da[i].qid+"' class='collapse list-unstyled'></ul></li>"); 
+	                    	var yangshi="";
+	                    	if(da[i].qid==1){
+	                    		yangshi="icon-bars";
+	                    	}
+							if(da[i].qid==2){
+								yangshi="icon-page";                		
+							}
+							if(da[i].qid==3){
+								yangshi="icon-presentation";
+							}
+							if(da[i].qid==4){
+								yangshi="icon-user";
+							}
+							if(da[i].qid==5){
+								yangshi="icon-list";
+							}
+	                         $("#daohang1").append("<li onclick='quanxiancha("+da[i].qid+")'><a href='#apps"+da[i].qid+"' style='color:black' aria-expanded='false' data-toggle='collapse'><i class='"+yangshi+"'></i>"+da[i].text+"</a><ul id='apps"+da[i].qid+"' class='collapse list-unstyled'></ul></li>"); 
 	                    }
 	            	}else{
 	            		$("#apps"+num).html("");
@@ -114,8 +141,7 @@
 	            			$("#apps"+num).append("<li><a href=javascript:chuxian('"+da[a].url+"') >"+da[a].text+"</a></li> ");
 	            		}
 	            	}
-	                
-	                
+	            	
 	            }
 	        })
 	    }

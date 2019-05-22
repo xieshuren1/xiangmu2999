@@ -66,4 +66,10 @@ public class MyController {
           return arr;
      }
 
+     @RequestMapping("username_sclogintime")
+     public @ResponseBody List<quanxian > username_sclogintime(HttpSession session){	 
+    	 users us= (users) session.getAttribute("user_us");
+    	 	
+          return null;
+     }
 }
