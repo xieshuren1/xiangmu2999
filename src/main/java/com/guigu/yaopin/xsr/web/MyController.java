@@ -57,7 +57,7 @@ public class MyController {
          	  for (String string : split) {
     			qx1.add(string);
          	  }
-          }  else {
+          }  else { 
         	  qx1=null;
           }
           
