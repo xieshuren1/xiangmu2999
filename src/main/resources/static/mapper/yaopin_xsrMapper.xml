@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.guigu.yaopin.xsr.dao.YaopinMapper" >
-    <select id="chaquanxian" parameterType="int" resultType="com.guigu.yaopin.xsr.doamin.quanxian" >
-        select * from quanxian where nid=#{nid}
+    <select id="chaquanxian" parameterType="com.guigu.yaopin.xsr.doamin.quanxian" resultType="com.guigu.yaopin.xsr.doamin.quanxian" >
+        select * from quanxian where nid=#{nid} 
+		<if test="shouquan!=null">
+		and qid in
+			<foreach collection="shouquan" open="(" close=")" item="v" separator="," >
+				#{v}
+			</foreach>
+		</if>
     </select>
 
     <select id="login_xsr" parameterType="com.guigu.yaopin.xsr.doamin.users" resultType="com.guigu.yaopin.xsr.doamin.users">
-        select a.*,b.juesename from users a ,juese b where a.jid=b.jid and username=#{username}
+        select a.*,b.juesename,b.quanxian from users a ,juese b where a.jid=b.jid and username=#{username}
     </select>
 
     <update id="xiumi" parameterType="com.guigu.yaopin.xsr.doamin.users">
         update users set passwordm=#{passwordm} where username=#{username}
     </update>
-
-    <select id="shoufengqin" >
-
-    </select>
 </mapper>

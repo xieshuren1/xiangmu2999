@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface YaopinMapper {
 
-    List<quanxian > chaquanxian(int nid);//查询权限
+    List<quanxian > chaquanxian(quanxian us);//查询权限
 
     users  login_xsr(users us); //登录
 

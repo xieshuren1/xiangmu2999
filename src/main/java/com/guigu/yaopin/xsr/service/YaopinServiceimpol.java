@@ -14,9 +14,8 @@ public class YaopinServiceimpol implements YaopinService {
     private YaopinMapper dao;
 
     @Override
-    public List<quanxian> chaquanxian(int nid) {
-        List<quanxian> arr = dao.chaquanxian(nid);
-        System.out.println(arr);
+    public List<quanxian> chaquanxian(quanxian us) {
+        List<quanxian> arr = dao.chaquanxian(us);
         return arr;
     }
 

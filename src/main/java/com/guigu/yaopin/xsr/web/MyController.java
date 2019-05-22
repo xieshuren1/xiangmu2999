@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+
+import static org.hamcrest.CoreMatchers.nullValue;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,19 +40,29 @@ public class MyController {
                session.setAttribute("user_name",user.getJuesename());
                return "1";
           }catch (Exception e){
-               System.out.println("登录失败");//fgfd
+               System.out.println("登录失败");
           }
           return "0";
      }
 
      @RequestMapping("quanxian_xsr")
-     public @ResponseBody List<quanxian > chaquanxian(String nid){
-          if(nid==null){
-               nid=0+"";
-          }
+     public @ResponseBody List<quanxian > chaquanxian(String nid,HttpSession session){	 
           int nnid=Integer.parseInt(nid);
-          List<quanxian> arr = im.chaquanxian(nnid);
-
+          List<String> qx1=new ArrayList<String>();
+          
+          if(nnid==0) {
+        	  users us= (users) session.getAttribute("user_us");
+         	  String qx = us.getQuanxian();
+         	  String[] split = qx.split(",");         	  
+         	  for (String string : split) {
+    			qx1.add(string);
+         	  }
+          }  else {
+        	  qx1=null;
+          }
+          
+          quanxian quanxi=new quanxian(0, null, null, nnid,qx1);
+          List<quanxian> arr = im.chaquanxian(quanxi);
           return arr;
      }
 

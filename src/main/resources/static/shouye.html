@@ -4,75 +4,15 @@
     <meta charset="UTF-8">
     <title>药品后台管理</title>
 </head>
-        <link rel="stylesheet" href="wenjian_xsr/css_xsr/bootstrap.min.css" />
-        <script type="text/javascript" src="wenjian_xsr/js_xsr/jquery-3.3.1.js"></script>
-        <script type="text/javascript" src="wenjian_xsr/js_xsr/bootstrap.min.js"></script>
-        <script type="text/javascript" src="wenjian_xsr/js_xsr/bootstrap-paginator.js"></script>
-<body>
-    <div style="border: 2px solid grey;height: 915px;position: absolute;width: 80%;left: 10%" >
-        <div class="container" style="position: absolute;top: 45px;left: 50%;" ><font id="nic">昵称:</font></div>
-        <div id="dingbu" style="height: 105px;width: 100%;">
-            <div style="width: 509px;height: 105px;position: absolute;right: 0px;"> <img src="wenjian_xsr/js_xsr/biaoti22.PNG"></div>
-        </div>
-        <hr>
-
-        <div id="shoufengqin" style="position: absolute;border: 1px solid blue;top: 125px;width: 200px;height: 85.7%;">
-
-            <div id='accordion'>
-                <!--大格-->
-                <div class='card' id='biaotiid1'>
-                    <!--大标题-->
-                        <a class='collapsed card-link' data-toggle='collapse' href='#collapseThree1'>
-                            <div class='card-header'>
-                            <img src='wenjian_xsr/img_xsr/xiangxiazhi.PNG' style='width: 16px;height: 11px;' />
-                            &nbsp;标题</div>
-                        </a>
-                    <div id='collapseThree1' class='collapse' data-parent='#accordion'>
-                        <!--小内容-->
-                        <div class='container' id='1neirong1'  style='height: 30px;'>
-                           内容
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+      
+<body >
+			<div class="container">
+		  		首页
+		   </div>
 </body>
 
 <script>
-    //id='collapseThree"+i+"'   里面放小标题内容
-    var id = 0;
-    quanxiancha();
-    function quanxiancha(){
-        $.ajax({
-            url:"quanxian_xsr",
-            data:{
-                nid:id
-            },
-            dataType : "json",
-            success:function(da){
-                $("#shoufengqin").html("");
-                for (i = 0;i < da.length; i++){
-                    $("#shoufengqin").append(
-                        "<div id='accordion'>" +
-                                                "<div class='card' id='biaotiid"+i+"'>" +
-                                                    "<a class='collapsed card-link' data-toggle='collapse' href='#collapseThree"+i+"'>" +
-                                                        "<div class='card-header'>" +
-                                                            "<img src='wenjian_xsr/js_xsr/xiangxiazhi.PNG' style='width: 16px;height: 11px;' />&nbsp;标题" +
-                                                        "</div>" +
-                                                    "</a>" +
-                                                    "<div id='collapseThree"+i+"' class='collapse' data-parent='#accordion'></div>" +
-                                                "</div>" +
-                                            "</div>");
-                }
-            }
-        })
-    }
-
+   
 
 </script>
 </html>

@@ -34,7 +34,7 @@ public class AuthRealm extends AuthorizingRealm{
          	String userName  = usernamePasswordToken.getUsername();
 			ByteSource bytes = ByteSource.Util.bytes(usernamePasswordToken.getPassword());
 			String pass = bytes.toString();
-			users  user = im.login_xsr(new users(0,userName,"",0,""));
+			users  user = im.login_xsr(new users(0,userName,"",0,"",""));
 			System.out.println(user);
       		if(user!=null){
 				//2.判断密码

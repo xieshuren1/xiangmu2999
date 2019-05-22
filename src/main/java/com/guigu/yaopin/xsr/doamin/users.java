@@ -6,16 +6,30 @@ public class users {
     private String passwordm;
     private int jid;
     private String juesename;
+    private String quanxian;
 
-    public users(int userid, String username, String passwordm, int jid, String juesename) {
-        this.userid = userid;
-        this.username = username;
-        this.passwordm = passwordm;
-        this.jid = jid;
-        this.juesename = juesename;
-    }
+    public users(int userid, String username, String passwordm, int jid, String juesename, String quanxian) {
+		super();
+		this.userid = userid;
+		this.username = username;
+		this.passwordm = passwordm;
+		this.jid = jid;
+		this.juesename = juesename;
+		this.quanxian = quanxian;
+	}
 
-    public users() {
+
+    public String getQuanxian() {
+		return quanxian;
+	}
+
+
+	public void setQuanxian(String quanxian) {
+		this.quanxian = quanxian;
+	}
+
+
+	public users() {
     }
 
     public int getUserid() {
@@ -58,16 +72,13 @@ public class users {
         this.juesename = juesename;
     }
 
-    @Override
-    public String toString() {
-        return "users{" +
-                "userid=" + userid +
-                ", username='" + username + '\'' +
-                ", passwordm='" + passwordm + '\'' +
-                ", jid=" + jid +
-                ", juesename='" + juesename + '\'' +
-                '}';
-    }
+
+	@Override
+	public String toString() {
+		return "users [userid=" + userid + ", username=" + username + ", passwordm=" + passwordm + ", jid=" + jid
+				+ ", juesename=" + juesename + ", quanxian=" + quanxian + "]";
+	}
+
 
 
 }
