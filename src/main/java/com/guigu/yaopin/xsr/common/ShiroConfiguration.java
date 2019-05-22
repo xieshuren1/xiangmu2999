@@ -104,6 +104,7 @@ public class ShiroConfiguration {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("/login.html", "anon");
         map.put("/login_xsr", "anon");
+        map.put("/*.PNG", "anon");
         map.put("/*", "authc");
         bean.setFilterChainDefinitionMap(map);
         return bean;

@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MyController {
      @Autowired
      private YaopinService im;
+
+     private Map cunjihe = new HashMap();
 
      @RequestMapping("login_xsr")
      public @ResponseBody String login_xsr(users us, HttpSession session){
@@ -36,4 +40,16 @@ public class MyController {
           }
           return "0";
      }
+
+     @RequestMapping("quanxian_xsr")
+     public @ResponseBody List<quanxian > chaquanxian(String nid){
+          if(nid==null){
+               nid=0+"";
+          }
+          int nnid=Integer.parseInt(nid);
+          List<quanxian> arr = im.chaquanxian(nnid);
+
+          return arr;
+     }
+
 }

@@ -12,4 +12,8 @@
     <update id="xiumi" parameterType="com.guigu.yaopin.xsr.doamin.users">
         update users set passwordm=#{passwordm} where username=#{username}
     </update>
+
+    <select id="shoufengqin" >
+
+    </select>
 </mapper>
