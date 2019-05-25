@@ -12,8 +12,25 @@ public class Supplier {
     private String address;
 
     private String remarks;
+    
+    public Supplier() {}
+    
+    public Supplier(String suppliername, String supplierphone) {
+    	this.suppliername = suppliername;
+    	this.supplierphone = supplierphone;
+    }
+    public Supplier(Integer supplierid, String suppliername, String suppliercontacts, String supplierphone,
+			String address, String remarks) {
+		super();
+		this.supplierid = supplierid;
+		this.suppliername = suppliername;
+		this.suppliercontacts = suppliercontacts;
+		this.supplierphone = supplierphone;
+		this.address = address;
+		this.remarks = remarks;
+	}
 
-    public Integer getSupplierid() {
+	public Integer getSupplierid() {
         return supplierid;
     }
 

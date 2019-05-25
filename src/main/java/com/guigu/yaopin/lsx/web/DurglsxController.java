@@ -99,14 +99,29 @@ public class DurglsxController {
 		map.put("total", info.getLastPage());
 		return map;
 	}
-	   //修改药品查询id
+	   //修改客户查询id
 		@RequestMapping("upConsumerIDs")
 		public Consumer upConsumerIDS(String ids) {
 			Consumer uplsx = lsx.upConsumerIDs_lsx(Integer.parseInt(ids));
 			
 			return uplsx;
 		}
-		//删除药品
+		
+		@RequestMapping("UpConsumer1s")
+		public int UpConsumers(String consumerid,String consumername,String consumercontacts,String consumerphone,String address,String remarks) {
+		Consumer c=new Consumer(Integer.parseInt(consumerid), consumername, consumercontacts, consumerphone, address, remarks);
+			int upsConsumerslsx = lsx.UpsConsumerslsx(c);
+			return upsConsumerslsx;
+		}
+		
+		@RequestMapping("addsConsumer1s")
+		public int addConsumers(String consumerid,String consumername,String consumercontacts,String consumerphone,String address,String remarks) {
+		Consumer c=new Consumer(Integer.parseInt(consumerid), consumername, consumercontacts, consumerphone, address, remarks);
+			int upsConsumerslsx = lsx.addsConsumer_lsx(c);
+			return upsConsumerslsx;
+		}
+		
+		//删除客户
 		@RequestMapping("delConsumers")
 		public int delConsumer(String ids) {
 			int delConsumers_lsx = lsx.delConsumergs_lsx(Integer.parseInt(ids));
@@ -121,11 +136,11 @@ public class DurglsxController {
 			int page1=Integer.parseInt(request.getParameter("page"));
 			int rows1=Integer.parseInt(request.getParameter("rows"));
 			//System.out.println(page1+"xxx"+rows1);
-			
-			
+			String Sname = request.getParameter("names");
+			String phone = request.getParameter("tells");
 			PageHelper.startPage(page1, rows1);
-			
-			List<Supplier> supplier = lsx.selcteSuppliers_lsx();
+			Supplier sup=new Supplier(Sname, phone); 
+			List<Supplier> supplier = lsx.selcteSuppliers_lsx(sup);
 			PageInfo info=new PageInfo<>(supplier);
 			map.put("rows", supplier);
 			map.put("total", info.getLastPage());

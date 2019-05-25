@@ -85,8 +85,8 @@ public class DurglsxSeriveImpol implements DurglsxSerive {
 	}
 
 	@Override
-	public List<Supplier> selcteSuppliers_lsx() {
-		List<Supplier> selcteSuppliers_lsx = dd.selcteSuppliers_lsx();
+	public List<Supplier> selcteSuppliers_lsx(Supplier s) {
+		List<Supplier> selcteSuppliers_lsx = dd.selcteSuppliers_lsx(s);
 		return selcteSuppliers_lsx;
 	}
 

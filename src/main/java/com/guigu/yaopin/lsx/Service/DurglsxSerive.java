@@ -35,7 +35,7 @@ public interface DurglsxSerive {
 		int UpsConsumerslsx(Consumer consumer);
 		
 		//供应商
-		List<Supplier> selcteSuppliers_lsx();
+		List<Supplier> selcteSuppliers_lsx(Supplier s);
 		
 		Supplier upSupplierIDs_lsx(int supplierid);
 		

@@ -14,7 +14,7 @@
         order by durgid desc
  </select>
  <select id="upDurgIDs_lsx" parameterType="int" resultType="com.guigu.yaopin.lsx.entity.Durg" >
-        select * from Durg where durgid=#{durgid}
+        select d.*,s.typename from Durg d,drugtype s where d.durgtype=s.typeid and d.durgid=#{durgid}
  </select>
     <select id="showdurgtype_lsx" resultType="com.guigu.yaopin.lsx.entity.drugtypes">
        select * from drugtype
@@ -53,6 +53,7 @@
         and consumerphone like "%"#{consumerphone}"%"
         </if>
         </where>
+        order by consumerid desc
  </select>
  
  <select id="upConsumerIDs_lsx" parameterType="int" resultType="com.guigu.yaopin.lsx.entity.Consumer" >
@@ -68,8 +69,17 @@
     </delete>
     
     <!-- 供应商 -->
-    <select id="selcteSuppliers_lsx" resultType="com.guigu.yaopin.lsx.entity.Supplier" >
+    <select id="selcteSuppliers_lsx" resultType="com.guigu.yaopin.lsx.entity.Supplier" parameterType="com.guigu.yaopin.lsx.entity.Supplier">
         select * from supplier 
+         <where>
+         <if test="suppliername!=''">
+         suppliername like "%"#{suppliername}"%"
+        </if>
+        <if test="supplierphone!=''">
+         and supplierphone like "%"#{supplierphone}"%"
+        </if>
+        </where>
+        order by supplierid desc
  </select>
      <select id="upSupplierIDs_lsx" parameterType="int" resultType="com.guigu.yaopin.lsx.entity.Supplier" >
         select * from supplier where supplierid=#{supplierid}

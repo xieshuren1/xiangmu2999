@@ -13,7 +13,20 @@ public class Consumer {
 
     private String remarks;
 
-    public Integer getConsumerid() {
+    public Consumer() {}
+    
+    public Consumer(Integer consumerid, String consumername, String consumercontacts, String consumerphone,
+			String address, String remarks) {
+		super();
+		this.consumerid = consumerid;
+		this.consumername = consumername;
+		this.consumercontacts = consumercontacts;
+		this.consumerphone = consumerphone;
+		this.address = address;
+		this.remarks = remarks;
+	}
+
+	public Integer getConsumerid() {
         return consumerid;
     }
 

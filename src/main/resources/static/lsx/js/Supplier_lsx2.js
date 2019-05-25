@@ -1,10 +1,14 @@
 $(function() {
 	
-	findsupplier()
+	findsupplier();
+	$('#bt_selctSupplier').click(function() {
+		findsupplier();
+	})
 })
 
  function findsupplier(page) {
-				
+				var name=$('#Suppliername').val();
+				var phone=$('#SupplierPhone').val();
 			        page = page == null ? 1 : page;
 			        
 			           $.ajax({
@@ -14,6 +18,8 @@ $(function() {
 			                data : {
 			                    page : page,
 			                    rows : 5,
+			                    names:name,
+			                    tells:phone,
 			                },
 			                success : function(data) {
 			                    $("#todsy").html("");

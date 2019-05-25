@@ -25,7 +25,174 @@
 				 findallemp();
 			 })
 			
+			
+			
 			 
+			
+			
+			 
+			 
+			
+			 
+			 //类型下拉框 新增
+			 $('#durgadd').click(function() {
+				 $.ajax({
+						type:'get',
+						url:'showsType',
+						 success:function(List){
+							 if(List!=null){
+								// alert(List[1].typename);
+								 for(var i=0;i<List.length;i++){
+									 var str="<option value='"+List[i].typeid+"'>"+List[i].typename+"</option>";
+									
+									 $('#yptype').append(str);
+								 }
+							 }
+							 
+							
+						 }
+						
+					})
+					//药品
+				 var ddd4 = jqueryAlert({
+						'content' : '<h5>药品添加</h5><br>药品名称:&nbsp;<input id="ypname" type="test"/><br><br>'
+							+'条形码:&nbsp;&nbsp;&nbsp;<input id="ypcode" type="test"/><br><br>'
+							+'药品规格:&nbsp;<input id="ypsize" type="test"/><br><br>'
+							+'药品单位:&nbsp;<input id="ypdw" type="test"/><br><br>'
+							+'预设进价:&nbsp;<input id="ypjj" type="test"/><br><br>'
+							+'预设售价:&nbsp;<input id="ypsj" type="test"/><br><br>'
+							+'药品类型:&nbsp;&nbsp;<select id="yptype"  style="height: 30px;width:220px;">'
+			                +'<option value="0">所有类型</option></select><br><br>'
+			                
+							+'药品生产商:<input id="ypsc" type="test"/><br>',
+						'width' :'750px',
+						'height' :'650px',
+						'modal' : true,
+						'buttons' : {
+							'确定' : function() {
+								var ypname=$('#ypname').val();
+								var ypcode=$('#ypcode').val();
+								var ypsize=$('#ypsize').val();
+								var ypdw=$('#ypdw').val();
+								var ypjj=$('#ypjj').val();
+								var ypsj=$('#ypsj').val();
+								var yptype=$('#yptype').val();
+								var ypsc=$('#ypsc').val();
+								if(ypname==''){
+									jqueryAlert({
+										'content' : '药品名称不能为空哦！',
+										'width' :'300px',
+										'height' :'100px',
+										'modal' : true,
+									})
+								}else if(ypcode==''){
+									jqueryAlert({
+										'content' : '药品不能为空哦！',
+										'width' :'350px',
+										'height' :'100px',
+										'modal' : true,
+									})
+								}else if(ypsize==''){
+									jqueryAlert({
+										'content' : '药品规格不能为空哦！',
+										'width' :'350px',
+										'height' :'100px',
+										'modal' : true,
+									})
+								}else if(ypdw==''){
+									jqueryAlert({
+										'content' : '药品单位不能为空哦！',
+										'width' :'350px',
+										'height' :'100px',
+										'modal' : true,
+									})
+								}else if(ypjj==''){
+									jqueryAlert({
+										'content' : '进价不能为空哦！',
+										'width' :'350px',
+										'height' :'100px',
+										'modal' : true,
+									})
+								}else if(ypsj==''){
+									jqueryAlert({
+										'content' : '售价不能为空哦！',
+										'width' :'350px',
+										'height' :'100px',
+										'modal' : true,
+									})
+								}else if(yptype==0){
+									jqueryAlert({
+										'content' : '请选择药品类型！',
+										'width' :'350px',
+										'height' :'100px',
+										'modal' : true,
+									})
+								}else if(ypsc==''){
+									jqueryAlert({
+										'content' : '请填写药品生产商！',
+										'width' :'350px',
+										'height' :'100px',
+										'modal' : true,
+									})
+								}else{
+									$.ajax({
+										url:'addsDurgs',
+										data:{
+											durgname:ypname,
+											durgbarcode:ypcode,
+											specifications:ypsize,
+											durgunit:ypdw,
+											durgbid:ypjj,
+											durgprice:ypsj,
+											durgtype:yptype,
+											manufacturer:ypsc,
+										},
+										success : function(du) {
+											findallemp();
+											if(du>0){
+												var ddd1 = jqueryAlert({
+													'content' : '新增药品成功！！！！',
+													'width' :'350px',
+													'height' :'120px',
+													'modal' : true,
+													'buttons' : {
+														'确定' : function() {
+															ddd1.close();
+														}
+													}
+												})
+												ddd4.close();
+											}
+										}
+										
+									})
+								}
+								
+							},
+				 '取消' : function() {
+					 ddd4.close();
+				 }
+						}
+					})
+			 })
+			function durgs() {
+
+				var durgname = $('#ypname').val(); //药品名称
+				var durgbarcode = $('#ypcode').val();//药品条形码
+				alert(durgname + "xxx" + durgbarcode)
+				if (durgname != " ") {
+					alert("111");
+					findDurg(durgname, null);
+				} else if (durgbarcode == " ") {
+					findDurg(null, durgbarcode);
+				} else if (durgname == " " && durgbarcode == " ") {
+					findDurg(null, null);
+				}
+
+			}
+			
+		})
+		 
 			 function findallemp(page) {
 				var n=$('#ddname').val();
 				var x=$('#depname').val();
@@ -88,114 +255,6 @@
 			                },
 			            });
 			    }  
-			
-			 
-			
-			
-			 
-			 
-			
-			 
-			 //类型下拉框 新增
-			 $('#durgadd').click(function() {
-				 $.ajax({
-						type:'get',
-						url:'showsType',
-						 success:function(List){
-							 if(List!=null){
-								// alert(List[1].typename);
-								 for(var i=0;i<List.length;i++){
-									 var str="<option value='"+List[i].typeid+"'>"+List[i].typename+"</option>";
-									
-									 $('#yptype').append(str);
-								 }
-							 }
-							 
-							
-						 }
-						
-					})
-					//药品xi
-				 var ddd4 = jqueryAlert({
-						'content' : '<h5>药品添加</h5><br>药品名称:&nbsp;<input id="ypname" type="test"/><br><br>'
-							+'条形码:&nbsp;&nbsp;&nbsp;<input id="ypcode" type="test"/><br><br>'
-							+'药品规格:&nbsp;<input id="ypsize" type="test"/><br><br>'
-							+'药品单位:&nbsp;<input id="ypdw" type="test"/><br><br>'
-							+'预设进价:&nbsp;<input id="ypjj" type="test"/><br><br>'
-							+'预设售价:&nbsp;<input id="ypsj" type="test"/><br><br>'
-							+'药品类型:&nbsp;&nbsp;<select id="yptype"  style="height: 30px;width:220px;">'
-			                +'<option value=" ">所有类型</option></select><br><br>'
-			                
-							+'药品生产商:<input id="ypsc" type="test"/><br>',
-						'width' :'750px',
-						'height' :'650px',
-						'modal' : true,
-						'buttons' : {
-							'确定' : function() {
-								var ypname=$('#ypname').val();
-								var ypcode=$('#ypcode').val();
-								var ypsize=$('#ypsize').val();
-								var ypdw=$('#ypdw').val();
-								var ypjj=$('#ypjj').val();
-								var ypsj=$('#ypsj').val();
-								var yptype=$('#yptype').val();
-								var ypsc=$('#ypsc').val();
-								
-								$.ajax({
-									url:'addsDurgs',
-									data:{
-										durgname:ypname,
-										durgbarcode:ypcode,
-										specifications:ypsize,
-										durgunit:ypdw,
-										durgbid:ypjj,
-										durgprice:ypsj,
-										durgtype:yptype,
-										manufacturer:ypsc,
-									},
-									success : function(du) {
-										findallemp();
-										if(du>0){
-											var ddd1 = jqueryAlert({
-												'content' : '新增药品成功！！！！',
-												'width' :'350px',
-												'height' :'120px',
-												'modal' : true,
-												'buttons' : {
-													'确定' : function() {
-														ddd1.close();
-													}
-												}
-											})
-											ddd4.close();
-										}
-									}
-									
-								})
-							},
-				 '取消' : function() {
-					 ddd4.close();
-				 }
-						}
-					})
-			 })
-			function durgs() {
-
-				var durgname = $('#ypname').val(); //药品名称
-				var durgbarcode = $('#ypcode').val();//药品条形码
-				alert(durgname + "xxx" + durgbarcode)
-				if (durgname != " ") {
-					alert("111");
-					findDurg(durgname, null);
-				} else if (durgbarcode == " ") {
-					findDurg(null, durgbarcode);
-				} else if (durgname == " " && durgbarcode == " ") {
-					findDurg(null, null);
-				}
-
-			}
-			
-		})
 		 function del(id){
 			
 			var ddd1 = jqueryAlert({
@@ -211,7 +270,7 @@
 								 ids:id,
 							 },
 							 success : function(te) {
-								
+								 findallemp();
 								 if(te>0){
 									 var ddd2 = jqueryAlert({
 											'content' : '药品删除成功！！！！',
@@ -245,6 +304,7 @@
 				url:'upDurgIDs',
 				data:{ids:did},
 				success : function(te) {
+					xl();
 					if(te!=null){
 						 var ddd4 = jqueryAlert({
 								'content' : '<h5>药品信息</h5><br>药品编号:&nbsp;&nbsp;&nbsp;&nbsp;<b>'+te.durgid+ '</b><br>'
@@ -255,7 +315,7 @@
 									+'预设进价:&nbsp;<input id="ypjj2" type="test" value="'+te.durgbid+'"/><br><br>'
 									+'预设售价:&nbsp;<input id="ypsj2" type="test" value="'+te.durgprice+'"/><br><br>'
 									+'药品类型:&nbsp;&nbsp;<select id="yptype2"  style="height: 30px;width:220px;">'
-					                +'<option value="1">所有类型</option></select><br><br>'
+					                +'<option value="'+te.durgtype+'">'+te.typename+'</option></select><br><br>'
 					                
 									+'药品生产商:<input id="ypsc2" type="test" value="'+te.manufacturer+'"/><br>',
 								'width' :'750px',
@@ -286,7 +346,7 @@
 												manufacturer:ypsc,
 											},
 											success : function(du) {
-											//	findallemp();
+												findallemp();
 												if(du>0){
 													var ddd1 = jqueryAlert({
 														'content' : '药品修改成功！！！！',
@@ -312,6 +372,29 @@
 							})
 					}
 				}
+				
+			})
+			
+			
+		}
+		
+		function xl() {
+			
+			$.ajax({
+				type:'get',
+				url:'showsType',
+				 success:function(List){
+					 if(List!=null){
+						// alert(List[1].typename);
+						 for(var i=0;i<List.length;i++){
+							 var str="<option value='"+List[i].typeid+"'>"+List[i].typename+"</option>";
+							
+							 $('#yptype2').append(str);
+						 }
+					 }
+					 
+					
+				 }
 				
 			})
 			
