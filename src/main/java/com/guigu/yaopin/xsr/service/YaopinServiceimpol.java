@@ -37,6 +37,10 @@ public class YaopinServiceimpol implements YaopinService {
     }
 
 	@Override
+	public int addUsers(users us) {
+		int addUsers = dao.addUsers(us);
+		return addUsers;
+	}	
 	public int logintime(int userid) {
 		int logintime = dao.logintime(userid);
 		return logintime;

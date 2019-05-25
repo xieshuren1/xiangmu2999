@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.yaopin.lsx.dao.DurglsxMapper" >
+ 
+ <!-- 药品信息查询 -->
+    <select id="selcteDurgs_lsx" resultType="com.guigu.yaopin.lsx.entity.Durg" parameterType="com.guigu.yaopin.lsx.entity.Durg" >
+        select d.*,s.typename from Durg d,drugtype s where d.durgtype=s.typeid
+        <if test="durgname!=''">
+        and d.durgname like "%"#{durgname}"%"
+        </if>
+        <if test="durgtype!=0">
+        and d.durgtype=#{durgtype}
+        </if>
+        order by durgid desc
+ </select>
+ <select id="upDurgIDs_lsx" parameterType="int" resultType="com.guigu.yaopin.lsx.entity.Durg" >
+        select d.*,s.typename from Durg d,drugtype s where d.durgtype=s.typeid and d.durgid=#{durgid}
+ </select>
+    <select id="showdurgtype_lsx" resultType="com.guigu.yaopin.lsx.entity.drugtypes">
+       select * from drugtype
+    </select>
+ 
+   <insert id="addDurglsx" parameterType="com.guigu.yaopin.lsx.entity.Durg"  >
+      INSERT INTO Durg (durgname,durgbarcode,specifications,durgunit,durgbid,durgprice,durgtype,manufacturer)VALUES
+       (#{durgname}, #{durgbarcode}, #{specifications},#{durgunit}, #{durgbid}, #{durgprice}, #{durgtype}, #{manufacturer});
+   
+    </insert>
+    
+    <delete id="delDurgs_lsx" parameterType="int">
+      DELETE from durg where durgid=#{durgid}
+    </delete>
+    
+    <update id="UpsDurgslsx" parameterType="com.guigu.yaopin.lsx.entity.Durg"  >
+     UPDATE durg set durgname=#{durgname} ,durgbarcode=#{durgbarcode},specifications=#{specifications} ,durgunit=#{durgunit},
+     durgbid=#{durgbid},durgprice=#{durgprice},durgtype=#{durgtype},manufacturer=#{manufacturer} where durgid=#{durgid}
+    
+    </update>
+    
+    <!-- 客户信息添加 -->
+    <insert id="addsConsumer_lsx" parameterType="com.guigu.yaopin.lsx.entity.Consumer">
+      INSERT INTO consumer (consumername,consumercontacts,consumerphone,address,remarks)VALUES
+      (#{consumername},#{consumercontacts},#{consumerphone},#{address},#{remarks})
+      
+    </insert>
+    <select id="selcteConsumers_lsx" resultType="com.guigu.yaopin.lsx.entity.Consumer" parameterType="com.guigu.yaopin.lsx.entity.Consumer" >
+        select * from consumer 
+        <where>
+         <if test="consumername!=''">
+         consumername like "%"#{consumername}"%"
+        </if>
+        
+        <if test="consumerphone!=''">
+        and consumerphone like "%"#{consumerphone}"%"
+        </if>
+        </where>
+        order by consumerid desc
+ </select>
+ 
+ <select id="upConsumerIDs_lsx" parameterType="int" resultType="com.guigu.yaopin.lsx.entity.Consumer" >
+        select * from consumer where consumerid=#{consumerid}
+ </select>
+ <update id="UpsConsumerslsx" parameterType="com.guigu.yaopin.lsx.entity.Consumer"  >
+     UPDATE consumer set consumername=#{consumername} ,consumercontacts=#{consumercontacts},consumerphone=#{consumerphone} ,address=#{address},
+     remarks=#{remarks} where consumerid=#{consumerid}
+    
+    </update>
+ <delete id="delConsumergs_lsx" parameterType="int">
+      DELETE from consumer where consumerid=#{consumerid}
+    </delete>
+    
+    <!-- 供应商 -->
+    <select id="selcteSuppliers_lsx" resultType="com.guigu.yaopin.lsx.entity.Supplier" parameterType="com.guigu.yaopin.lsx.entity.Supplier">
+        select * from supplier 
+         <where>
+         <if test="suppliername!=''">
+         suppliername like "%"#{suppliername}"%"
+        </if>
+        <if test="supplierphone!=''">
+         and supplierphone like "%"#{supplierphone}"%"
+        </if>
+        </where>
+        order by supplierid desc
+ </select>
+     <select id="upSupplierIDs_lsx" parameterType="int" resultType="com.guigu.yaopin.lsx.entity.Supplier" >
+        select * from supplier where supplierid=#{supplierid}
+ </select>
+ <delete id="delSuppliergs_lsx" parameterType="int">
+      DELETE from Supplier where supplierid=#{supplierid}
+    </delete>
+    
+ <insert id="addsSupplier_lsx" parameterType="com.guigu.yaopin.lsx.entity.Supplier" >
+    insert INTO supplier (suppliername,suppliercontacts,supplierphone,address,remarks)VALUES
+    (#{suppliername},#{suppliercontacts},#{supplierphone},#{address},#{remarks})
+    
+ </insert>
+ 
+ <update id="UpsSupplierslsx" parameterType="com.guigu.yaopin.lsx.entity.Supplier"  >
+     UPDATE consumer set suppliername=#{suppliername} ,suppliercontacts=#{suppliercontacts},supplierphone=#{supplierphone} ,address=#{address},
+     remarks=#{remarks} where supplierid=#{supplierid}
+    
+    </update>
+</mapper>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="shortcut icon" href="../wenjian2/img/favicon.ico">
+
+<!-- global stylesheets -->
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed"
+	rel="stylesheet">
+<link rel="stylesheet" href="../wenjian2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="../wenjian2/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../wenjian2/css/font-icon-style.css">
+<link rel="stylesheet" href="../wenjian2/css/style.default.css"
+	id="theme-stylesheet">
+</head>
+<body>
+	<div  class="form-inline" style="position: absolute;margin: 10px 0px 0px 400px ; ">
+		<label for="name">角色名称：</label>
+    	<input type="text" class="form-control" id="juesename" placeholder="角色名称">
+    	<button  class="btn btn-primary" onclick="showRole(1)">查询</button>
+	</div>
+	<div style="height: 700px;">
+	<table class="table table-hover" id="nt" >
+		
+		
+	</table>
+	</div>
+	<div align="center" style="width: 1000px;">
+		<ul class="pagination" style="position: absolute;left: 40%;top: 70%;"></ul>
+	</div>
+	<script src="../wenjian2/js/jquery.min.js"></script>
+	<script src="../wenjian2/js/popper/popper.min.js"></script>
+	<script src="../wenjian2/js/tether.min.js"></script>
+	<script src="../wenjian2/js/bootstrap.min.js"></script>
+	<script src="../wenjian2/js/jquery.cookie.js"></script>
+	<script src="../wenjian2/js/jquery.validate.min.js"></script>
+	<script src="../wenjian2/js/chart.min.js"></script>
+	<script src="../wenjian2/js/front.js"></script>
+	<link rel="stylesheet"
+		href="3.5js/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-paginator.js"></script>
+	<script type="text/javascript">
+		showRole(1);
+		function showRole(page) {
+			$.ajax({
+				url : "showRole2",
+				data : {
+					yeshu : page,
+					juesename: $("#juesename").val()
+				},
+				dataType : "json",
+				success : function(da) {
+					/* if (da.total == 0) {
+						$("#nt").html("<tr><td>暂时没有公告新闻</td></tr>");
+						return;
+					} */
+					$("#nt").empty();
+					var tr3="<tr  style='text-align: left;'><td colspan='5'><button type='button' class='btn btn-warning' onclick='addRole()'>添加</button></td></tr>";
+					$("#nt").append(tr3);
+					var tr="<tr class='bg-info text-white' style='text-align: center;'><th>角色编号</th><th>角色名称</th><th  colspan='3'>操作</th></tr>";
+					$("#nt").append(tr);
+					for (i = 0; i < da.rows.length; i++) {
+						var tr1="";
+						if((i+1)%2==0){
+							if((i+1)/2==1){
+								tr1="<tr class='table-warning' style='text-align: center;'><th scope='row'>"+da.rows[i].jid+"</th><td>"+da.rows[i].juesename+"</td><td><button type='button' class='btn btn-primary' onclick='delrole("+da.rows[i].jid+")' >删除</button></td><td><button type='button' class='btn btn-warning' onclick='uprole("+da.rows[i].jid+")'>修改</button></td><td><button type='button' class='btn btn-info' onclick='fenpei("+da.rows[i].jid+")'>分配功能</button></td></tr>";
+							}else{
+								tr1="<tr class='table-success' style='text-align: center;'><th scope='row'>"+da.rows[i].jid+"</th><td>"+da.rows[i].juesename+"</td><td><button type='button' class='btn btn-primary' onclick='delrole("+da.rows[i].jid+")' >删除</button></td><td><button type='button' class='btn btn-warning' onclick='uprole("+da.rows[i].jid+")'>修改</button></td><td><button type='button' class='btn btn-info' onclick='fenpei("+da.rows[i].jid+")'>分配功能</button></td></tr>";
+							}
+						}else{
+							tr1="<tr style='text-align: center;'><th scope='row'>"+da.rows[i].jid+"</th><td>"+da.rows[i].juesename+"</td><td><button type='button' class='btn btn-primary' onclick='delrole("+da.rows[i].jid+")' >删除</button></td><td><button type='button' class='btn btn-warning' onclick='uprole("+da.rows[i].jid+")'>修改</button></td><td><button type='button' class='btn btn-info' onclick='fenpei("+da.rows[i].jid+")'>分配功能</button></td></tr>";
+						}
+						$("#nt").append(tr1);
+					}
+					$(".pagination").bootstrapPaginator({
+						bootstrapMajorVersion : 1, //版本
+						currentPage : page, //当前页数
+						numberOfPages : 3, //最多显示Page页
+						totalPages : da.total, //所有数据可以显示的页数
+						itemTexts : function(type, page, current) {//设置分页按钮显示字体样式
+							switch (type) {
+							case "first":
+								return "首页";
+							case "prev":
+								return "上一页";
+							case "next":
+								return "下一页";
+							case "last":
+								return "末页";
+							case "page":
+								return page;
+							}
+						},
+						onPageClicked : function(e, originalEvent, type, page) {
+							showRole(page);
+						}
+					});
+				}
+			});
+
+		}
+	</script>
+</body>
+</html>

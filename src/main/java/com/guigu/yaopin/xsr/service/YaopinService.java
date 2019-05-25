@@ -15,7 +15,9 @@ public interface YaopinService {
     users login_xsr(users us); //登录
 
     int xiumi(users us);//修改密码
-    
+
+    int addUsers(users us);
+
     int logintime(int userid); //插入登录时间表
     
     String selectlotime(int userid);//查询上一次登录时间

@@ -18,6 +18,9 @@ public interface YaopinMapper {
     users  login_xsr(users us); //登录
 
     int xiumi(users us);//修改密码
+
+    int addUsers(users u);
+
     
     int logintime(int userid); //插入登录时间表
     
@@ -34,4 +37,5 @@ public interface YaopinMapper {
     String chajuese(int jid);//查询角色
     
     int upemp(emp em);//修改员工表
+
 }
