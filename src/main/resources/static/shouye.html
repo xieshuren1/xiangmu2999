@@ -5,14 +5,231 @@
     <title></title>
 </head>
       
+   	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" href="wenjian2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="wenjian2/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="wenjian2/css/font-icon-style.css">
+    <link rel="stylesheet" href="wenjian2/css/style.default.css" id="theme-stylesheet">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="wenjian2/css/ui-elements/card.css">
+    <link rel="stylesheet" href="wenjian2/css/style.css">
+      <style>
+      .td1{
+      text-align: right;
+      width: 300px;      
+      }
+      td{
+			font-size: 20px;
+      }
+      </style>
 <body >
-			<div class="container">
-		  		首页
-		   </div>
+		<br>
+			<div  style="position: absolute;left: 30px;">
+				<h3><i class='icon-home'></i>&nbsp;&nbsp;药品仓库</h3>
+			</div>
+			<div  style="text-align: center;">
+				药品类型：<button id='ypclass'  class="btn btn-primary dropdown-toggle" style='background-color: white;color:black;width: 160px;' data-toggle="dropdown">
+				      所有类型
+				</button>
+				    <div id='xialakuang' class="dropdown-menu">
+				   	   <button class='dropdown-item' >所有类型</button>
+				    </div>
+			</div>
+		<hr>
+		<div class='row' id='report1' >
+					<!--  <div class='col-sm-3'>
+	                    <div class='card'>
+	                        <div class='card-block'>
+	                            <div class='text-left report1-cont'>
+	                                <h2 class='font-light m-b-0'><i class='ti-arrow-up text-success'></i>
+		                                <font style='vertical-align: inherit;'><font id='font_qian0' style='vertical-align: inherit;'> $ 9,220</font>
+		                                &nbsp;&nbsp;  &nbsp;&nbsp; <font size='3' id='bb0'></font> <font size='2'>单位(盒)</font>
+		                                </font>
+	                                </h2>
+	                                <span class='text-muted'><font style='vertical-align: inherit;'><font id='font0' style='vertical-align: inherit;color: green;'>1</font></font></span>
+	                            </div>
+	                            <span class='text-success'><font style='vertical-align: inherit;'><font id='jindu_0' style='vertical-align: inherit;'>80％</font></font></span>
+	                            <div class='progress'>
+	                                <div class='progress-bar bg-success' role='progressbar' id='tiaoza0' style='width: 0%; height: 6px;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+	                            </div>                          
+	                        </div>
+	                    </div>
+	                </div>  -->
+	               
+         </div>
+         
+			<div  style="position: absolute;top: 750px;left: 40%;" >
+					<button type="button" id='sang'  onclick="xshang()" class="btn btn-outline-info">上一页</button>
+					&nbsp;&nbsp;&nbsp;
+					<button type="button" id='xias' onclick="xia()" class="btn btn-outline-info">下一页</button>
+			</div>
+			
+			      
+		<!-- 模态框 -->
+		  <div class="modal fade" id="myModal1">
+		    <div class="modal-dialog modal-lg">
+		      <div class="modal-content">
+		   
+		        <!-- 模态框头部 -->
+		        <div class="modal-header">
+		          <h4 id='yao_toubu' class="modal-title">详细信息</h4>
+		        </div>
+		   
+		        <!-- 模态框主体 -->
+		        <div class="modal-body" >
+		    		<table >
+		    			<tr>
+		    				<td class="td1">药品名称:</td>
+		    				<td ><font color='blue' id='text1'></font></td>
+		    			</tr>
+		    			<tr>
+		    				<td class="td1">剩余库存数量:</td>
+		    				<td><font id='text2'></font></td>
+		    			</tr>
+		    			<tr>
+		    				<td class="td1">已销售药品数量:</td>
+		    				<td><font id='text3'></font></td>
+		    			</tr>
+		    			<tr>
+		    				<td class="td1">药品进价:</td>
+		    				<td><font id='text4'></font></td>
+		    			</tr>
+		    			<tr>
+		    				<td class="td1">药品售价:</td>
+		    				<td><font id='text5'></font></td>
+		    			</tr>
+		    			<tr>
+		    				<td class="td1">纯利润:</td>
+		    				<td><font id='text6'></font></td>
+		    			</tr>
+		    		</table>
+		        </div>
+		   
+		        <!-- 模态框底部 -->
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+		        </div>
+		   			
+		      </div>
+		    </div>
+		  </div>
+			
 </body>
 
-<script>
-   
+ <!--Global Javascript -->
+    <script src="wenjian2/js/jquery.min.js"></script>
+    <script src="wenjian2/js/popper/popper.min.js"></script>
+    <script src="wenjian2/js/tether.min.js"></script>
+    <script src="wenjian2/js/bootstrap.min.js"></script>
+    <script src="wenjian2/js/jquery.cookie.js"></script>
+    <script src="wenjian2/js/jquery.validate.min.js"></script> 
+    <script src="wenjian2/js/chart.min.js"></script> 
+    <script src="wenjian2/js/front.js"></script> 
+    
+    <!--Core Javascript -->
+    <script src="wenjian2/js/mychart.js"></script>
 
+<script type="text/javascript" src="wenjian_xsr/js_xsr/jquery-3.3.1.js"></script>
+<script>
+function mo(name,sykc,jinjia,shouchu,zongxiaoshou){
+	var chunli=zongxiaoshou*(shouchu-jinjia);
+	if((sykc+zongxiaoshou)*0.2>sykc){
+		$("#text2").html(" "+sykc+"盒(库存数量过少，请尽快采购噢)");
+		$("#text2").css("color","red");
+	}else{
+		$("#text2").html(" "+sykc+"盒");
+		$("#text2").css("color","black");
+	}
+	$("#text1").html(" "+name);
+	$("#text3").html(" "+zongxiaoshou+"盒");
+	$("#text4").html("￥"+jinjia+"/盒");
+	$("#text5").html("￥"+shouchu+"/盒");
+	$("#text6").html("  "+chunli+"元");
+}
+	
+		function xshang(){
+			if(yy!=1){
+				yy=yy-1;
+				fenyejindu(yy);
+			}				
+		}
+		function xia(){
+			if(yy!=zongye){
+				yy=yy+1;
+				fenyejindu(yy);
+			}
+		}
+		var zongye=0;
+		var yy=1;
+		fenyejindu(yy);
+	function fenyejindu(page){
+		$.ajax({
+		    url:"jinduchaxun",
+		    data:{
+		    	dangqianyeshu:page,
+				leixing:$("#ypclass").html()
+		    },
+		    dataType : "json",
+		    success:function(da){
+		    	zongye=da.total;
+		    	$("#report1").html("");
+		   		for(i=0;i<da.rows.length;i++){
+		   			if(da.total>1){
+		   				$("#sang").css("display","");
+		   				$("#xias").css("display","");
+		   			}else{
+		   				$("#sang").css("display","none");
+		   				$("#xias").css("display","none");
+		   			}
+		   			var colo=""; var cla="";
+		   			if((i+1)%4==1){
+		   				colo="#28a745";cla="progress-bar bg-success";
+		   			}
+		   			if((i+1)%4==2){
+		   				colo="red";cla="progress-bar bg-danger";
+		   			}
+		   			if((i+1)%4==3){
+		   				colo="#ffc107";cla="progress-bar bg-warning";
+		   			}
+		   			if((i+1)%4==0){
+		   				colo="#17a2b8";cla="progress-bar bg-info";
+		   			}
+		   			$("#report1").append(
+		   					"<div style='cursor:pointer' class='col-sm-3' data-toggle='modal' data-target='#myModal1' onclick=mo('"+da.rows[i].durgname+"',"+da.rows[i].stocknum+","+da.rows[i].durgbid+","+da.rows[i].durgprice+","+da.rows[i].num+")>"+
+		   					" <div class='card'>"+
+		   					"    <div class='card-block'>"+
+		   					" <div class='text-left report1-cont'>"+
+		   					"<h2 class='font-light m-b-0'><i class='ti-arrow-up text-success'></i>"+
+		   					"<font style='vertical-align: inherit;'><font id='font_qian"+i+"' style='vertical-align: inherit;'> $ 9,220</font>"+
+		   					"&nbsp;&nbsp;  &nbsp;&nbsp;  <font size='3'>单位(<font id='hemoeny"+i+"'></font>/盒)</font></font></h2>"+
+		   					"<span class='text-muted'><font style='vertical-align: inherit;'><font id='font"+i+"' style='vertical-align: inherit;color: "+colo+";'>1</font></font></span>  </div>"+
+		   					"<span class='text-success'><font style='vertical-align: inherit;'><font id='jindu_"+i+"' style='vertical-align: inherit;color:"+colo+"'>80％</font></font></span>"+
+		   					"<div class='progress'>"+
+		   					"<div class='"+cla+"' role='progressbar' id='tiaoza"+i+"' style='width: 0%; height: 6px;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>"+
+		   					"</div></div></div></div>"
+		   					);
+		   				$("#font"+i).html(da.rows[i].durgname);
+		   				$("#font_qian"+i).html("销售:"+da.rows[i].num);
+		   				var d = da.rows[i].stocknum+da.rows[i].num;
+		   				var dd=((da.rows[i].num/d).toFixed(2))*100+"%";
+		   				$("#jindu_"+i).html(dd);
+		   				$("#tiaoza"+i).css("width",dd);
+		   				$("#hemoeny"+i).html("￥"+da.rows[i].durgprice);		   				
+		   		} 
+		   		$("#xialakuang").html("<button class='dropdown-item' onclick=xuanlei('所有类型') >所有类型</button>");
+		   		for(a=0;a<da.yaoclass.length;a++){
+		   			$("#xialakuang").append("<button class='dropdown-item' onclick=xuanlei('"+da.yaoclass[a].typename+"') >"+da.yaoclass[a].typename+"</button>");
+		   		}		   		
+		    }		    
+		}) 
+	}
+	
+	function xuanlei(name){
+		$("#ypclass").html(name);
+		fenyejindu(1);
+	}
+	 
 </script>
+
 </html>

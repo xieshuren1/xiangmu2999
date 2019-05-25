@@ -106,7 +106,8 @@ public class ShiroConfiguration {
         map.put("/login_xsr", "anon");
         map.put("/durg.html", "anon");
         map.put("/loginout","logout");
-        
+      //修改调整的登录页面  
+        bean.setLoginUrl("/login.html");
         map.put("/*", "authc");
         bean.setFilterChainDefinitionMap(map);
         return bean;

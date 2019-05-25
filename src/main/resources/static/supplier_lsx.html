@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>供应商信息</title>
+</head>
+<link rel="stylesheet" href="lsx/3.5js/bootstrap.min.css" />
+<link
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./lsx/css_lsx/alert.css"/>
+<script type="text/javascript" src="./lsx/js_lsx/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="./lsx/js_lsx/bootstrap.min.js"></script>
+<script type="text/javascript" src="./lsx/js_lsx/bootstrap-paginator.js"></script>
+<script
+	src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+	<script
+	src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+<script type="text/javascript" src="./lsx/css_lsx/bootstrap-table.css"></script>
+<script type="text/javascript" src="./lsx/css_lsx/bootstrap-table.js"></script>
+<script src="./lsx/js/Supplier_lsx2.js"></script>
+<script src="./lsx/js_lsx/bootstrap-table-zh-CN.js"></script>
+<script src='./lsx/js_lsx/alert.js'></script>
+<script
+	src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<body>
+
+<div class="container-fluid bg-light ">
+
+		<div class="row navbar navbar-expand-sm"
+			style="background-color: #F3F3F3; border: 1px solid #E4E4E4;">
+			<div>
+				<a class="navbar-brand text-muted" href="#"> &nbsp;供应商信息
+
+				</a>
+			</div>
+		</div>
+	
+<br> 
+		 <div class="row navbar-expand-sm" align="center">
+        <div class="col-xl-3">
+             <button class='btn btn-primary btn-sm' id="Supplieradd" style="width: 140px;">供应商增加</button>
+           
+        </div>
+       
+        <div class="col-xl-3">
+            <input type="text" id="Suppliername" class="form-control" placeholder="请输入供应商名称"  style="height: 42px">
+        </div>
+        <div class="col-xl-2">
+            <input type="text" id="SupplierPhone" class="form-control" placeholder="请输入联系电话" style="height: 42px">
+        </div>
+         <div class="col-xl-2">
+            <button type="button" id="bt_selctSupplier" class="btn btn-primary">
+                 查询
+            </button>
+            <button type="button" onclick="reset()" class="btn btn-primary">
+                重置
+            </button>
+        </div>
+        <div class="col-xl-1">
+            <span id="se" style="color: red"></span>
+        </div>
+    </div>
+    <br> 
+    <div class="row navbar-expand-sm">
+         <table class="table table-striped table-bordered" id="Supplier">
+            <thead>
+            <tr align="center">
+                <th style="text-align: center;">供货商编号</th>
+                <th style="text-align: center;">供货商名称</th>
+                <th style="text-align: center;">联系人</th>
+                <th style="text-align: center;">联系电话</th>
+                <th style="text-align: center;">地址</th>
+                <th style="text-align: center;">备注</th>
+              <th style="text-align: center;">操作</th>
+            </tr>
+            </thead>
+            <tbody id="todsy" align="center">
+            </tbody>
+        </table>
+    </div>
+     
+	</div>
+	
+	<div align="center">
+		<ul class="pagination"></ul>
+	</div>
+</body>
+</html>

@@ -41,18 +41,19 @@
                 <div class="navbar-holder d-flex align-items-center justify-content-between">
                     <div class="navbar-header">
                         <a href="index.html" class="navbar-brand">
-                            <div class="brand-text brand-big hidden-lg-down"><img src="wenjian2/img/logo-white.png" alt="Logo" class="img-fluid"></div>
-                            <div class="brand-text brand-small"><img src="wenjian2/img/logo-icon.png" alt="Logo" class="img-fluid"></div>
+                            <div class="brand-text brand-big hidden-lg-down"></div>
+                            <div class="brand-text brand-small"></div>
                         </a>
-                        <!-- <a id="toggle-btn" href="#" class="menu-btn active">
+                       <a id="toggle-btn" href="#" class="menu-btn active">
                             <span></span>
                             <span></span>
                             <span></span>
-                        </a> -->
+                        </a>
                     </div>
+                    <div style="position: absolute;left: 45%;font-size: 25px;">祁云药品后台管理</div>
                 </div>
                   <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                  	退出   还有登录时间
+                  	上次登录时间 : &nbsp;<font id='logindate' >登录时间</font>
                 </ul>
                 
             </div>
@@ -66,13 +67,13 @@
 
         <!--***** SIDE NAVBAR *****-->
         <nav class="side-navbar">
-            <div class="sidebar-header d-flex align-items-center">
-                <div class="avatar">
-                <img src="wenjian2/img/avatar-2.jpg"  class="img-fluid rounded-circle"><!-- 头像 -->
-                </div>
-                <div class="title">
-                    <h1 class="h4">昵称</h1>
-                </div>
+            <div class="sidebar-header d-flex align-items-center list-unstyled" style="cursor:pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" onclick="tanchu()">
+			                <div class="avatar">
+			                <img src="wenjian2/img/avatar-2.jpg"  class="img-fluid rounded-circle"><!-- 头像 -->
+			                </div>
+			                <div class="title">
+			                    <h1 id='nicheng' class="h5">昵称</h1>
+			                </div>  
             </div>
             <hr>
             <!-- Sidebar Navidation Menus-->
@@ -85,26 +86,22 @@
         
         <div class="content-inner" >
         	
-        	<iframe id='ifromda' frameborder='no' src='shouye.html' style='height: 800px;width: 100%;position: relative;border: 1px solid red' ></iframe>
+        	<iframe id='ifromda' frameborder='no' src='shouye.html' style='height: 800px;width: 100%;position: relative; ' ></iframe>
         
         </div>  
         
         
-      </div>   
+      </div> 
+
+        
        
 <script type="text/javascript" src="wenjian_xsr/js_xsr/jquery-3.3.1.js"></script>
 	<script type="text/javascript">
-	 $.ajax({
-         url:"username_sclogintime",
-         data:{
-              
-         },
-         dataType : "json",
-         success:function(da){
-        	 
-         }
-         
-	 })
+	
+	
+	function tanchu(){
+		document.getElementById("ifromda").src="zijixinxi.html";
+	}
 	 quanxiancha(0);
 	    function quanxiancha(num){	    	
 	        $.ajax({
@@ -115,7 +112,7 @@
 	            dataType : "json",
 	            success:function(da){
 	            	if(num==0){
-	            		$("#daohang1").html("<li class='active'> <a href=javascript:chuxian('shouye.html') style='color:blue'><i class='icon-home'></i>首页</a></li>");
+	            		$("#daohang1").html("<li class='active' > <a id='shouename' href=javascript:chuxian('shouye.html') style='color:blue'><i class='icon-home'></i>仓库</a></li>");
 	                    for (i = 0;i < da.length; i++){
 	                    	var yangshi="";
 	                    	if(da[i].qid==1){
@@ -133,20 +130,48 @@
 							if(da[i].qid==5){
 								yangshi="icon-list";
 							}
-	                         $("#daohang1").append("<li onclick='quanxiancha("+da[i].qid+")'><a href='#apps"+da[i].qid+"' style='color:black' aria-expanded='false' data-toggle='collapse'><i class='"+yangshi+"'></i>"+da[i].text+"</a><ul id='apps"+da[i].qid+"' class='collapse list-unstyled'></ul></li>"); 
+							if(da[i].qid==26){
+								yangshi="icon-form";
+							}
+	                         $("#daohang1").append("<li onclick='quanxiancha("+da[i].qid+")'><a  href='#apps"+da[i].qid+"' style='color:black' aria-expanded='false' data-toggle='collapse'><i class='"+yangshi+"'></i>"+da[i].text+"</a><ul id='apps"+da[i].qid+"' class='collapse list-unstyled'></ul></li>"); 
 	                    }
 	            	}else{
 	            		$("#apps"+num).html("");
-	            		for(a=0;a<da.length;a++){          			
-	            			$("#apps"+num).append("<li><a href=javascript:chuxian('"+da[a].url+"') >"+da[a].text+"</a></li> ");
+	            		for(a=0;a<da.length;a++){     
+	            			var dd="<i class='fa fa-power-off'></i>";
+	            			if(da[a].text!="退出系统"){
+	            				dd=""
+	            			}
+	            			$("#apps"+num).append("<li><a href=javascript:chuxian('"+da[a].url+"') >"+dd+da[a].text+"</a></li> ");
 	            		}
 	            	}
 	            	
 	            }
 	        })
 	    }
+	    $.ajax({
+	         url:"username_sclogintime",
+	         data:{
+	              
+	         },
+	         dataType : "json",
+	         success:function(da){
+	        	 $("#nicheng").html("(user)  "+da[0]);
+	        	 $("#logindate").html(da[1]);
+	         }
+	         
+		 })
 	    function chuxian(lianjie){
+	    	if(lianjie=="shouye.html"){
+	    		$("#shouename").css("background-color","");
+	    	}else{
+	    		$("#shouename").css("background-color","white");
+	    	}
+	    	
 	    	document.getElementById("ifromda").src=lianjie;
+			if(lianjie=="loginout"){
+	    		window.location.href="login.html";
+	    	}
 	    }
 	</script>
 
