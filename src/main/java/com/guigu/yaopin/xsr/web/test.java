@@ -17,7 +17,7 @@ public class test {
     private YaopinService im;
     @Test
     public void fff(){
-        ByteSource bytes = ByteSource.Util.bytes("hejianhua");
+        ByteSource bytes = ByteSource.Util.bytes("admin");
         SimpleHash hash = new SimpleHash("MD5","123456",bytes,1234);
        System.out.println(hash.toString());
     }
