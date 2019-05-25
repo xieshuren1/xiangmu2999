@@ -132,4 +132,12 @@ public class MyController {
           return map;
      }
      
+     @RequestMapping("update_user_emp")
+     public @ResponseBody String update_user_emp(emp em,HttpSession session){	 
+    	 users us= (users) session.getAttribute("user_us");
+    	em.setUid(us.getUserid());
+    	int upemp = im.upemp(em);
+          return upemp+"";
+     }
+     
 }

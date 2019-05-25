@@ -32,4 +32,6 @@ public interface YaopinMapper {
     emp user_emp(int uid); //查询员工
     
     String chajuese(int jid);//查询角色
+    
+    int upemp(emp em);//修改员工表
 }
