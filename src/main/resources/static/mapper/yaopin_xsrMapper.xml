@@ -18,6 +18,7 @@
     <update id="xiumi" parameterType="com.guigu.yaopin.xsr.doamin.users">
         update users set passwordm=#{passwordm} where username=#{username}
     </update>
+
 	    
 	<insert id="addUsers" parameterType="com.guigu.yaopin.xsr.doamin.users" >
 	    <selectKey resultType="int" keyProperty="userid" keyColumn="userid" order="AFTER" >
@@ -25,5 +26,38 @@
 	    </selectKey>
 	   insert into users(username,passwordm,jid)values(#{username},#{passwordm},#{jid})
 	  </insert>
+
+
+    
+    <insert id="logintime" parameterType="int">
+    	insert into logintime(userid) values(#{userid})
+    </insert>
+    
+    <select id="selectlotime" parameterType="int" resultType="String" >
+    	select logindate from logintime where loginid=(select MAX(loginid) from logintime where userid=#{userid})-1
+    </select>
+    
+    <select id="jindu_xsr" resultType="com.guigu.yaopin.xsr.doamin.xiaoshoujindu">
+    	select a.stockid,a.stocknum,b.num,b.financialdate,b.financialmoney,c.durgname,d.typename,c.durgbid,c.durgprice from stock a,financial b,durg c,drugType d 
+		where a.did=b.did and a.did=c.durgid and c.durgtype=d.typeid  ORDER BY num desc
+    </select>
+    
+     <select id="jindu_xsr12" parameterType="int" resultType="com.guigu.yaopin.xsr.doamin.xiaoshoujindu">
+     select a.stockid,a.stocknum,b.num,b.financialdate,b.financialmoney,c.durgname,d.typename,c.durgbid,c.durgprice from stock a,financial b,durg c,drugType d 
+	 where a.did=b.did and a.did=c.durgid and c.durgtype=d.typeid and d.typeid=#{typeid}  ORDER BY num desc
+    </select>
+    
+    <select id="leiclass" resultType="com.guigu.yaopin.xsr.doamin.drugType">
+   		select * from drugType 
+    </select>
+    
+    <select id="user_emp" parameterType="int" resultType="com.guigu.yaopin.xsr.doamin.emp" >
+    	select * from emp where uid=#{uid}
+    </select>
+    
+    <select id="chajuese" parameterType="int" resultType="String" >
+    	select juesename from juese where jid=#{jid}
+    </select>
+    
 
 </mapper>
