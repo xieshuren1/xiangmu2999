@@ -18,4 +18,12 @@
     <update id="xiumi" parameterType="com.guigu.yaopin.xsr.doamin.users">
         update users set passwordm=#{passwordm} where username=#{username}
     </update>
+	    
+	<insert id="addUsers" parameterType="com.guigu.yaopin.xsr.doamin.users" >
+	    <selectKey resultType="int" keyProperty="userid" keyColumn="userid" order="AFTER" >
+	      SELECT LAST_INSERT_ID()
+	    </selectKey>
+	   insert into users(username,passwordm,jid)values(#{username},#{passwordm},#{jid})
+	  </insert>
+
 </mapper>

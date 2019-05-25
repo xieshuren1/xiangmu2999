@@ -14,4 +14,5 @@ public interface YaopinMapper {
     users  login_xsr(users us); //登录
 
     int xiumi(users us);//修改密码
+    int addUsers(users u);
 }

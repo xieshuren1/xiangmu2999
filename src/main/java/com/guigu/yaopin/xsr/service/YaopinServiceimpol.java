@@ -30,4 +30,10 @@ public class YaopinServiceimpol implements YaopinService {
         int i=dao.xiumi(us);
         return i;
     }
+
+	@Override
+	public int addUsers(users us) {
+		int addUsers = dao.addUsers(us);
+		return addUsers;
+	}
 }

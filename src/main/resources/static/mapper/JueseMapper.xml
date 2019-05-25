@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.yaopin.dyj.dao.JueseMapper" >
+  <resultMap id="BaseResultMap" type="com.guigu.yaopin.dyj.pojo.Juese" >
+    <id column="jid" property="jid" jdbcType="INTEGER" />
+    <result column="juesename" property="juesename" jdbcType="VARCHAR" />
+    <result column="quanxian" property="quanxian" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    jid, juesename, quanxian
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.yaopin.dyj.pojo.JueseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from juese
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from juese
+    where jid = #{jid,jdbcType=INTEGER}
+  </select>
+  <select id="showRole" parameterType="com.guigu.yaopin.dyj.pojo.JueseQuervo" resultType="com.guigu.yaopin.dyj.pojo.Juese">
+  	select * from juese 
+  	<where>
+  		<if test="j.juesename!=null and j.juesename!='' ">
+  		and juesename like "%"#{j.juesename}"%"
+  		</if>
+  	</where>LIMIT #{pageNum},#{maxPage}
+  </select>
+  <select id="count" parameterType="com.guigu.yaopin.dyj.pojo.JueseQuervo" resultType="int">
+  	select count(*) from juese 
+  	<where>
+  		<if test="j.juesename!=null and j.juesename!='' ">
+  		and juesename like "%"#{j.juesename}"%"
+  		</if>
+  	</where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from juese
+    where jid = #{jid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guigu.yaopin.dyj.pojo.JueseExample" >
+    delete from juese
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guigu.yaopin.dyj.pojo.Juese" >
+    insert into juese (jid, juesename, quanxian
+      )
+    values (#{jid,jdbcType=INTEGER}, #{juesename,jdbcType=VARCHAR}, #{quanxian,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.guigu.yaopin.dyj.pojo.Juese" >
+    insert into juese
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jid != null" >
+        jid,
+      </if>
+      <if test="juesename != null" >
+        juesename,
+      </if>
+      <if test="quanxian != null" >
+        quanxian,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jid != null" >
+        #{jid,jdbcType=INTEGER},
+      </if>
+      <if test="juesename != null" >
+        #{juesename,jdbcType=VARCHAR},
+      </if>
+      <if test="quanxian != null" >
+        #{quanxian,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guigu.yaopin.dyj.pojo.JueseExample" resultType="java.lang.Integer" >
+    select count(*) from juese
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update juese
+    <set >
+      <if test="record.jid != null" >
+        jid = #{record.jid,jdbcType=INTEGER},
+      </if>
+      <if test="record.juesename != null" >
+        juesename = #{record.juesename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quanxian != null" >
+        quanxian = #{record.quanxian,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update juese
+    set jid = #{record.jid,jdbcType=INTEGER},
+      juesename = #{record.juesename,jdbcType=VARCHAR},
+      quanxian = #{record.quanxian,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guigu.yaopin.dyj.pojo.Juese" >
+    update juese
+    <set >
+      <if test="juesename != null" >
+        juesename = #{juesename,jdbcType=VARCHAR},
+      </if>
+      <if test="quanxian != null" >
+        quanxian = #{quanxian,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jid = #{jid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guigu.yaopin.dyj.pojo.Juese" >
+    update juese
+    set juesename = #{juesename,jdbcType=VARCHAR},
+      quanxian = #{quanxian,jdbcType=VARCHAR}
+    where jid = #{jid,jdbcType=INTEGER}
+  </update>
+</mapper>
