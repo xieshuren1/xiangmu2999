@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.yaopin.hjh.dao.GostockMapper">
+	<resultMap id="BaseResultMap"
+		type="com.guigu.yaopin.hjh.entity.Gostock">
+		<id column="gsid" property="gsid" jdbcType="INTEGER" />
+		<result column="sid" property="sid" jdbcType="INTEGER" />
+		<result column="fid" property="fid" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="getsel"
+		type="com.guigu.yaopin.hjh.entity.Gostock">
+		<id column="gsid" property="gsid" jdbcType="INTEGER" />
+		<result column="sid" property="sid" jdbcType="INTEGER" />
+		<result column="fid" property="fid" jdbcType="INTEGER" />
+		<association property="s"
+			javaType="com.guigu.yaopin.hjh.entity.Supplier">
+			<id column="suppliername" property="suppliername" />
+			<result column="suppliercontacts" property="suppliercontacts" />
+			<result column="supplierphone" property="supplierphone" />
+			<result column="address" property="address" />
+
+		</association>
+		<association property="f"
+			javaType="com.guigu.yaopin.hjh.entity.Financial">
+			<id column="financialid" property="financialid" />
+			<result column="did" property="did" />
+			<result column="eid" property="eid" />
+			<result column="num" property="num" />
+			<result column="financialdate" property="financialdate" />
+			<result column="financialmoney" property="financialmoney" />
+
+			<association property="d"
+				javaType="com.guigu.yaopin.hjh.entity.Durg">
+
+				<id column="durgid" property="durgid" />
+				<result column="durgname" property="durgname" />
+				<result column="durgbid" property="durgbid" />
+
+				<association property="stk"
+					javaType="com.guigu.yaopin.hjh.entity.Stock">
+
+					<id column="stockid" property="stockid" />
+					<result column="stocknum" property="stocknum" />
+
+				</association>
+			</association>
+		</association>
+		<association property="stk"
+			javaType="com.guigu.yaopin.hjh.entity.Stock">
+			<id column="stockid" property="stockid" />
+			<result column="stocknum" property="stocknum" />
+		</association>
+
+	</resultMap>
+	<select id="getgostocklist" resultMap="getsel"
+		parameterType="com.guigu.yaopin.hjh.entity.QueryVo">
+		SELECT *
+		from gostock g INNER JOIN supplier s on g.sid=s.supplierid INNER
+		JOIN
+		financial f on g.fid=f.financialid INNER JOIN durg d on
+		f.did=d.durgid INNER JOIN stock st on d.durgid=st.did
+	<where>
+			<if test="suppliername!=null and suppliername!='' ">
+				suppliername like
+				"%"#{suppliername}"%"
+			</if>
+		</where>
+		LIMIT #{page},8
+	</select>
+	<select id="getgostocklistcount" resultType="int" parameterType="com.guigu.yaopin.hjh.entity.QueryVo" >
+	SELECT count(*)
+		from gostock g INNER JOIN supplier s on g.sid=s.supplierid INNER
+		JOIN
+		financial f on g.fid=f.financialid INNER JOIN durg d on
+		f.did=d.durgid INNER JOIN stock st on d.durgid=st.did
+	<where>
+			<if test="suppliername!=null and suppliername!='' ">
+				suppliername like
+				"%"#{suppliername}"%"
+			</if>
+		</where>
+		
+	
+	</select>
+		<select id="getgostock" resultMap="getsel" parameterType="int" >
+	SELECT *
+		from gostock g INNER JOIN supplier s on g.sid=s.supplierid INNER
+		JOIN
+		financial f on g.fid=f.financialid INNER JOIN durg d on
+		f.did=d.durgid INNER JOIN stock st on d.durgid=st.did where g.gsid=#{gsid}
+	
+		
+	
+	</select>
+	
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		gsid, sid, fid
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.guigu.yaopin.hjh.entity.GostockExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from gostock
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from gostock
+		where gsid = #{gsid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from gostock
+		where gsid = #{gsid,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="com.guigu.yaopin.hjh.entity.GostockExample">
+		delete from gostock
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="com.guigu.yaopin.hjh.entity.Gostock">
+		insert into gostock (gsid, sid, fid
+		)
+		values
+		(#{gsid,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER},
+		#{fid,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.guigu.yaopin.hjh.entity.Gostock">
+		insert into gostock
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="gsid != null">
+				gsid,
+			</if>
+			<if test="sid != null">
+				sid,
+			</if>
+			<if test="fid != null">
+				fid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="gsid != null">
+				#{gsid,jdbcType=INTEGER},
+			</if>
+			<if test="sid != null">
+				#{sid,jdbcType=INTEGER},
+			</if>
+			<if test="fid != null">
+				#{fid,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="com.guigu.yaopin.hjh.entity.GostockExample"
+		resultType="java.lang.Integer">
+		select count(*) from gostock
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update gostock
+		<set>
+			<if test="record.gsid != null">
+				gsid = #{record.gsid,jdbcType=INTEGER},
+			</if>
+			<if test="record.sid != null">
+				sid = #{record.sid,jdbcType=INTEGER},
+			</if>
+			<if test="record.fid != null">
+				fid = #{record.fid,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update gostock
+		set gsid = #{record.gsid,jdbcType=INTEGER},
+		sid =
+		#{record.sid,jdbcType=INTEGER},
+		fid = #{record.fid,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.guigu.yaopin.hjh.entity.Gostock">
+		update gostock
+		<set>
+			<if test="sid != null">
+				sid = #{sid,jdbcType=INTEGER},
+			</if>
+			<if test="fid != null">
+				fid = #{fid,jdbcType=INTEGER},
+			</if>
+		</set>
+		where gsid = #{gsid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.guigu.yaopin.hjh.entity.Gostock">
+		update gostock
+		set sid = #{sid,jdbcType=INTEGER},
+		fid =
+		#{fid,jdbcType=INTEGER}
+		where gsid = #{gsid,jdbcType=INTEGER}
+	</update>
+</mapper>

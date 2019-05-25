@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.yaopin.hjh.dao.SupplierMapper" >
+  <resultMap id="BaseResultMap" type="com.guigu.yaopin.hjh.entity.Supplier" >
+    <id column="supplierid" property="supplierid" jdbcType="INTEGER" />
+    <result column="suppliername" property="suppliername" jdbcType="VARCHAR" />
+    <result column="suppliercontacts" property="suppliercontacts" jdbcType="VARCHAR" />
+    <result column="supplierphone" property="supplierphone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    supplierid, suppliername, suppliercontacts, supplierphone, address, remarks
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.yaopin.hjh.entity.SupplierExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier
+    where supplierid = #{supplierid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier
+    where supplierid = #{supplierid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guigu.yaopin.hjh.entity.SupplierExample" >
+    delete from supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guigu.yaopin.hjh.entity.Supplier" >
+    insert into supplier (supplierid, suppliername, suppliercontacts, 
+      supplierphone, address, remarks
+      )
+    values (#{supplierid,jdbcType=INTEGER}, #{suppliername,jdbcType=VARCHAR}, #{suppliercontacts,jdbcType=VARCHAR}, 
+      #{supplierphone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.guigu.yaopin.hjh.entity.Supplier" >
+    insert into supplier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierid != null" >
+        supplierid,
+      </if>
+      <if test="suppliername != null" >
+        suppliername,
+      </if>
+      <if test="suppliercontacts != null" >
+        suppliercontacts,
+      </if>
+      <if test="supplierphone != null" >
+        supplierphone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="suppliername != null" >
+        #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="suppliercontacts != null" >
+        #{suppliercontacts,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierphone != null" >
+        #{supplierphone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guigu.yaopin.hjh.entity.SupplierExample" resultType="java.lang.Integer" >
+    select count(*) from supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update supplier
+    <set >
+      <if test="record.supplierid != null" >
+        supplierid = #{record.supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="record.suppliername != null" >
+        suppliername = #{record.suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suppliercontacts != null" >
+        suppliercontacts = #{record.suppliercontacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplierphone != null" >
+        supplierphone = #{record.supplierphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update supplier
+    set supplierid = #{record.supplierid,jdbcType=INTEGER},
+      suppliername = #{record.suppliername,jdbcType=VARCHAR},
+      suppliercontacts = #{record.suppliercontacts,jdbcType=VARCHAR},
+      supplierphone = #{record.supplierphone,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guigu.yaopin.hjh.entity.Supplier" >
+    update supplier
+    <set >
+      <if test="suppliername != null" >
+        suppliername = #{suppliername,jdbcType=VARCHAR},
+      </if>
+      <if test="suppliercontacts != null" >
+        suppliercontacts = #{suppliercontacts,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierphone != null" >
+        supplierphone = #{supplierphone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where supplierid = #{supplierid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guigu.yaopin.hjh.entity.Supplier" >
+    update supplier
+    set suppliername = #{suppliername,jdbcType=VARCHAR},
+      suppliercontacts = #{suppliercontacts,jdbcType=VARCHAR},
+      supplierphone = #{supplierphone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where supplierid = #{supplierid,jdbcType=INTEGER}
+  </update>
+</mapper>
