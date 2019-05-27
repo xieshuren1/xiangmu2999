@@ -47,7 +47,7 @@ public class MyController {
           UsernamePasswordToken tk = new UsernamePasswordToken(us.getUsername(),us.getPasswordm());
           try {
                sub.login(tk);
-               System.out.println("登录成功");
+              
                users user= im.login_xsr(us);
                session.setAttribute("user_us",user);
                session.setAttribute("user_usid",user.getUserid());

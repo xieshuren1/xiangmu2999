@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.yaopin.hjh.dao.DurgMapper">
+	<resultMap id="BaseResultMap"
+		type="com.guigu.yaopin.hjh.entity.Durg">
+		<id column="durgid" property="durgid" jdbcType="INTEGER" />
+		<result column="durgname" property="durgname"
+			jdbcType="VARCHAR" />
+		<result column="durgbarcode" property="durgbarcode"
+			jdbcType="VARCHAR" />
+		<result column="specifications" property="specifications"
+			jdbcType="VARCHAR" />
+		<result column="durgunit" property="durgunit"
+			jdbcType="VARCHAR" />
+		<result column="durgbid" property="durgbid" jdbcType="VARCHAR" />
+		<result column="durgprice" property="durgprice"
+			jdbcType="VARCHAR" />
+		<result column="durgtype" property="durgtype"
+			jdbcType="INTEGER" />
+		<result column="manufacturer" property="manufacturer"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="getsel"
+		type="com.guigu.yaopin.hjh.entity.Durg">
+		<id column="durgid" property="durgid" jdbcType="INTEGER" />
+		<result column="durgname" property="durgname"
+			jdbcType="VARCHAR" />
+		<result column="durgbarcode" property="durgbarcode"
+			jdbcType="VARCHAR" />
+		<result column="specifications" property="specifications"
+			jdbcType="VARCHAR" />
+		<result column="durgunit" property="durgunit"
+			jdbcType="VARCHAR" />
+		<result column="durgbid" property="durgbid" jdbcType="VARCHAR" />
+		<result column="durgprice" property="durgprice"
+			jdbcType="VARCHAR" />
+		<result column="durgtype" property="durgtype"
+			jdbcType="INTEGER" />
+		<result column="manufacturer" property="manufacturer"
+			jdbcType="VARCHAR" />
+
+		<association property="stk"
+			javaType="com.guigu.yaopin.hjh.entity.Stock">
+
+			<id column="stockid" property="stockid" />
+			<result column="stocknum" property="stocknum" />
+
+		</association>
+	</resultMap>
+	<select id="getstock" resultMap="getsel"
+		parameterType="com.guigu.yaopin.hjh.entity.QueryVo">
+		SELECT *From durg d INNER JOIN
+		stock s on d.durgid=s.did
+		<where>
+
+			<if test="name!=null and name!=''">
+				durgname like "%"#{name}"%"
+
+			</if>
+		</where>
+
+		limit #{page},#{rows}
+	</select>
+	<select id="getstockcount" resultType="int"
+		parameterType="com.guigu.yaopin.hjh.entity.QueryVo">
+		SELECT count(*) from durg d INNER JOIN
+		stock s on d.durgid=s.did
+		<where>
+
+			<if test="name!=null and name!=''">
+				durgname like "%"#{name}"%"
+
+			</if>
+		</where>
+
+
+	</select>
+	<select id="selectdrug"
+		parameterType="com.guigu.yaopin.hjh.entity.QueryVo"
+		resultMap="BaseResultMap">
+		<if test="tyid==0 ">
+			SELECT *from durg limit #{page},#{rows}
+		</if>
+
+		<if test="tyid!=0">
+
+			SELECT *from durg where durgtype=#{tyid}
+
+			limit
+			#{page},#{rows}
+		</if>
+
+
+
+
+
+	</select>
+
+	<select id="selectdurgname"
+		parameterType="com.guigu.yaopin.hjh.entity.QueryVo"
+		resultMap="BaseResultMap">
+
+		SELECT *from durg where durgname like "%"#{name}"%"
+
+	</select>
+	<select id="selectdurgnamecount"
+		parameterType="com.guigu.yaopin.hjh.entity.QueryVo" resultType="int">
+
+		SELECT
+		count(*) from durg where durgname like "%"#{name}"%"
+	</select>
+
+
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		durgid, durgname, durgbarcode, specifications, durgunit,
+		durgbid, durgprice,
+		durgtype,
+		manufacturer
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.guigu.yaopin.hjh.entity.DurgExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from durg
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from durg
+		where durgid = #{durgid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from durg
+		where durgid =
+		#{durgid,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="com.guigu.yaopin.hjh.entity.DurgExample">
+		delete from durg
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="com.guigu.yaopin.hjh.entity.Durg">
+		insert into durg (durgid,
+		durgname, durgbarcode,
+		specifications, durgunit, durgbid,
+		durgprice,
+		durgtype, manufacturer
+		)
+		values (#{durgid,jdbcType=INTEGER},
+		#{durgname,jdbcType=VARCHAR},
+		#{durgbarcode,jdbcType=VARCHAR},
+		#{specifications,jdbcType=VARCHAR},
+		#{durgunit,jdbcType=VARCHAR},
+		#{durgbid,jdbcType=VARCHAR},
+		#{durgprice,jdbcType=VARCHAR},
+		#{durgtype,jdbcType=INTEGER},
+		#{manufacturer,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.guigu.yaopin.hjh.entity.Durg">
+		insert into durg
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="durgid != null">
+				durgid,
+			</if>
+			<if test="durgname != null">
+				durgname,
+			</if>
+			<if test="durgbarcode != null">
+				durgbarcode,
+			</if>
+			<if test="specifications != null">
+				specifications,
+			</if>
+			<if test="durgunit != null">
+				durgunit,
+			</if>
+			<if test="durgbid != null">
+				durgbid,
+			</if>
+			<if test="durgprice != null">
+				durgprice,
+			</if>
+			<if test="durgtype != null">
+				durgtype,
+			</if>
+			<if test="manufacturer != null">
+				manufacturer,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="durgid != null">
+				#{durgid,jdbcType=INTEGER},
+			</if>
+			<if test="durgname != null">
+				#{durgname,jdbcType=VARCHAR},
+			</if>
+			<if test="durgbarcode != null">
+				#{durgbarcode,jdbcType=VARCHAR},
+			</if>
+			<if test="specifications != null">
+				#{specifications,jdbcType=VARCHAR},
+			</if>
+			<if test="durgunit != null">
+				#{durgunit,jdbcType=VARCHAR},
+			</if>
+			<if test="durgbid != null">
+				#{durgbid,jdbcType=VARCHAR},
+			</if>
+			<if test="durgprice != null">
+				#{durgprice,jdbcType=VARCHAR},
+			</if>
+			<if test="durgtype != null">
+				#{durgtype,jdbcType=INTEGER},
+			</if>
+			<if test="manufacturer != null">
+				#{manufacturer,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="com.guigu.yaopin.hjh.entity.QueryVo"
+		resultType="java.lang.Integer">
+		<if test="tyid==0">
+			SELECT count(*)from durg
+		</if>
+		<if test="tyid!=0">
+			SELECT count(*)from durg where durgtype=#{tyid}
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update durg
+		<set>
+			<if test="record.durgid != null">
+				durgid = #{record.durgid,jdbcType=INTEGER},
+			</if>
+			<if test="record.durgname != null">
+				durgname = #{record.durgname,jdbcType=VARCHAR},
+			</if>
+			<if test="record.durgbarcode != null">
+				durgbarcode = #{record.durgbarcode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.specifications != null">
+				specifications =
+				#{record.specifications,jdbcType=VARCHAR},
+			</if>
+			<if test="record.durgunit != null">
+				durgunit = #{record.durgunit,jdbcType=VARCHAR},
+			</if>
+			<if test="record.durgbid != null">
+				durgbid = #{record.durgbid,jdbcType=VARCHAR},
+			</if>
+			<if test="record.durgprice != null">
+				durgprice = #{record.durgprice,jdbcType=VARCHAR},
+			</if>
+			<if test="record.durgtype != null">
+				durgtype = #{record.durgtype,jdbcType=INTEGER},
+			</if>
+			<if test="record.manufacturer != null">
+				manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update durg
+		set durgid = #{record.durgid,jdbcType=INTEGER},
+		durgname =
+		#{record.durgname,jdbcType=VARCHAR},
+		durgbarcode =
+		#{record.durgbarcode,jdbcType=VARCHAR},
+		specifications =
+		#{record.specifications,jdbcType=VARCHAR},
+		durgunit =
+		#{record.durgunit,jdbcType=VARCHAR},
+		durgbid =
+		#{record.durgbid,jdbcType=VARCHAR},
+		durgprice =
+		#{record.durgprice,jdbcType=VARCHAR},
+		durgtype =
+		#{record.durgtype,jdbcType=INTEGER},
+		manufacturer =
+		#{record.manufacturer,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.guigu.yaopin.hjh.entity.Durg">
+		update durg
+		<set>
+			<if test="durgname != null">
+				durgname = #{durgname,jdbcType=VARCHAR},
+			</if>
+			<if test="durgbarcode != null">
+				durgbarcode = #{durgbarcode,jdbcType=VARCHAR},
+			</if>
+			<if test="specifications != null">
+				specifications = #{specifications,jdbcType=VARCHAR},
+			</if>
+			<if test="durgunit != null">
+				durgunit = #{durgunit,jdbcType=VARCHAR},
+			</if>
+			<if test="durgbid != null">
+				durgbid = #{durgbid,jdbcType=VARCHAR},
+			</if>
+			<if test="durgprice != null">
+				durgprice = #{durgprice,jdbcType=VARCHAR},
+			</if>
+			<if test="durgtype != null">
+				durgtype = #{durgtype,jdbcType=INTEGER},
+			</if>
+			<if test="manufacturer != null">
+				manufacturer = #{manufacturer,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where durgid = #{durgid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.guigu.yaopin.hjh.entity.Durg">
+		update durg
+		set durgname = #{durgname,jdbcType=VARCHAR},
+		durgbarcode = #{durgbarcode,jdbcType=VARCHAR},
+		specifications =
+		#{specifications,jdbcType=VARCHAR},
+		durgunit =
+		#{durgunit,jdbcType=VARCHAR},
+		durgbid = #{durgbid,jdbcType=VARCHAR},
+		durgprice = #{durgprice,jdbcType=VARCHAR},
+		durgtype =
+		#{durgtype,jdbcType=INTEGER},
+		manufacturer =
+		#{manufacturer,jdbcType=VARCHAR}
+		where durgid =
+		#{durgid,jdbcType=INTEGER}
+	</update>
+</mapper>
