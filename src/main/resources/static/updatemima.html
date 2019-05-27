@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+ <link rel="shortcut icon" href="wenjian2/img/favicon.ico">
+    
+    <!-- global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" href="wenjian2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="wenjian2/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="wenjian2/css/font-icon-style.css">
+    <link rel="stylesheet" href="wenjian2/css/style.default.css" id="theme-stylesheet">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="wenjian2/css/ui-elements/card.css">
+    <link rel="stylesheet" href="wenjian2/css/style.css">
+<body>
+					<div class="card form" id="form3">
+                        <div class="card-header">
+                            <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">修改密码</font></font></h3>
+                        </div>
+                        <br>
+                       <div class="container" align="center">
+                       			 原密码:
+							      <input type="password" style="width: 400px;height: 40px;" class="form-control" id="ypwd" placeholder="原密码">
+							     <font id='cuowu1' color="red" ></font>
+							     <br> <br> 
+							     新密码:
+							      <input type="password" style="width: 400px;height: 40px;" class="form-control" id="pwd1" placeholder="新密码">
+							      <font id='cuowu2' color="red" ></font>
+							      <br><br> 
+							      
+							     再次输入新密码:
+							      <input type="password" style="width: 400px;height: 40px;" class="form-control" id="pwd2" placeholder="再次输入新密码">
+							      <font id='cuowu3' color="red"></font>
+							      <br><br> 
+							      
+							      <div style="position: absolute;left: 46.5%;">
+							      <br>
+							    <button  class="btn btn-primary" onclick="xiumima()" style="width: 120px;left: 500px;">确定</button> 
+							   </div>  
+						</div>
+					</div>                        
+</body>
+
+<script type="text/javascript" src="wenjian_xsr/js_xsr/jquery-3.3.1.js"></script>
+	<script type="text/javascript">
+	function xiumima(){
+		if($("#ypwd").val().length==0){
+			$("#cuowu1").html("密码不能为空");
+			return;
+		}else{
+			$("#cuowu1").html("");
+		}
+		
+		if($("#pwd1").val().length==0){
+			$("#cuowu2").html("密码不能为空");
+			return;		
+		}else if($("#pwd1").val()==$("#ypwd").val()){
+			$("#cuowu2").html("密码不能与原密码一致");
+			return;
+		}else{
+			$("#cuowu2").html("");
+		}
+		
+		if($("#pwd2").val().length==0){
+			$("#cuowu3").html("密码不能为空");
+			return;
+		}
+		if($("#pwd1").val()!=$("#pwd2").val()){
+			$("#cuowu3").html("两次新密码不一致");
+			return;
+		}else{
+			$("#cuowu3").html("");
+		}
+		
+		
+	}
+		
+	
+	</script>
+
+    <!--Global Javascript -->
+    <script src="wenjian2/js/jquery.min.js"></script>
+    <script src="wenjian2/js/popper/popper.min.js"></script>
+    <script src="wenjian2/js/tether.min.js"></script>
+    <script src="wenjian2/js/bootstrap.min.js"></script>
+    <script src="wenjian2/js/jquery.cookie.js"></script>
+    <script src="wenjian2/js/jquery.validate.min.js"></script> 
+    <script src="wenjian2/js/chart.min.js"></script> 
+    <script src="wenjian2/js/front.js"></script> 
+    
+    <!--Core Javascript -->
+    <script src="wenjian2/js/mychart.js"></script>
+</html>

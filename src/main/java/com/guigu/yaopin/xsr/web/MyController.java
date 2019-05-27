@@ -144,4 +144,18 @@ public class MyController {
           return upemp+"";
      }
      //github.com/xieshuren1/xiangmu2999.git
+     
+     @RequestMapping("updatemima")
+     public @ResponseBody String updatemima(String passwordm,String passwo,HttpSession session){	 
+    	 users us= (users) session.getAttribute("user_us");
+    	 ByteSource bytes = ByteSource.Util.bytes(us.getUsername());
+         SimpleHash hash = new SimpleHash("MD5",passwordm,bytes,1234);
+         if(hash.toString().equals(us.getPasswordm())) {
+        	 SimpleHash hash2 = new SimpleHash("MD5",passwo,bytes,1234);
+        	 us.setPasswordm(hash2.toString());
+        	 int xiumi = im.xiumi(us);
+        	 return xiumi+"";
+         }
+          return "原始输入密码错误";
+     }
 }
