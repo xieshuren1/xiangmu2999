@@ -34,63 +34,88 @@
                                             <div class="form-group row">
                                                 <label for="example-text-input" style="width: 85px;" class=" col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">名称</font></font></label>
                                                 <div class="col-9">
-                                                    <input class="form-control" value="Steena Ben" id='username'>
+                                                    <input class="form-control" readonly="readonly"  id='username'>
                                                 </div>
                                             </div> 
                                             <div class="form-group row">
                                                 <label for="example-email-input" style="width: 85px;" class=" col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">姓名</font></font></label>
                                                 <div class="col-9">
-                                                    <input class="form-control" readonly="readonly"  value="谢树人" id='name'>
+                                                    <input class="form-control" readonly="readonly"  id='name'>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="example-url-input" style="width: 85px;" class=" col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">性别</font></font></label>
                                                 <div class="col-9">
-                                                    <input class="form-control" readonly="readonly"  value="男" id='sex'>
+                                                    <input class="form-control" readonly="readonly"   id='sex'>
                                                 </div>
                                             </div>   
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label for="example-text-input" style="width: 85px;" class=" col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">年龄</font></font></label>
+                                                <label for="example-url-input" style="width: 85px;" class=" col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">年龄</font></font></label>
                                                 <div class="col-9">
-                                                    <input class="form-control"   value="19" id='age'>
+                                                    <input class="form-control"   id='age'>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="example-date-input" style="width: 85px;" class=" col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">电话</font></font></label>
                                                 <div class="col-9"> 
-                                                    <input class="form-control"  value="18890616882" id='phone'>
+                                                    <input class="form-control"   id='phone'>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="example-tel-input" style="width: 85px;" class=" col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">角色</font></font></label>
                                                 <div class="col-9">
-                                                    <input class="form-control" id='juesename'  readonly="readonly" value="+91-(555)-555-5555" >
+                                                    <input class="form-control" id='juesename'  readonly="readonly"  >
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                 <br><br><br>
+                    <div align="center">               
+                  		 <button type="button" class="btn btn-outline-secondary" onclick="update()" style="width: 100px;">修改</button>
+                    </div>                 
 	</div>
 </body>
 <script type="text/javascript" src="wenjian_xsr/js_xsr/jquery-3.3.1.js"></script>
 <script type="text/javascript">
-		$.ajax({
-		    url:"user_emp",
-		    data:{
-		         
-		    },
-		    dataType : "json",
-		    success:function(da){
-		   		$("#username").val(da.user.username);
-		   		$("#name").val(da.emp.empname);
-		   		$("#sex").val(da.emp.sex);
-		   		$("#age").val(da.emp.age);
-		   		$("#phone").val(da.emp.phone);
-		   		$("#juesename").val(da.juese);
-		    }
-		    
-		})
+ddd();
+function ddd(){
+	$.ajax({
+	    url:"user_emp",
+	    data:{
+	         
+	    },
+	    dataType : "json",
+	    success:function(da){
+	   		$("#username").val(da.user.username);
+	   		$("#name").val(da.emp.empname);
+	   		$("#sex").val(da.emp.sex);
+	   		$("#age").val(da.emp.age);
+	   		$("#phone").val(da.emp.phone);
+	   		$("#juesename").val(da.juese);
+	    }
+	    
+	})
+}
+				
+		function update(){
+			$.ajax({
+			    url:"update_user_emp",
+			    data:{
+					 age:$("#age").val(),
+					 phone:$("#phone").val()
+			    },
+			    dataType : "text",
+			    success:function(da){
+			   		if(da>0){
+			   			ddd();
+			   		}
+			    }
+			    
+			})
+		}
+		
 </script>
 
 <!--Global Javascript -->

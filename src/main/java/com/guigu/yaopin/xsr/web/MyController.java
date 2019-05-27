@@ -47,7 +47,7 @@ public class MyController {
           UsernamePasswordToken tk = new UsernamePasswordToken(us.getUsername(),us.getPasswordm());
           try {
                sub.login(tk);
-               System.out.println("登录成功");
+              
                users user= im.login_xsr(us);
                session.setAttribute("user_us",user);
                session.setAttribute("user_usid",user.getUserid());
@@ -135,5 +135,27 @@ public class MyController {
     	 map.put("juese", chajuese);
           return map;
      }
-
+     
+     @RequestMapping("update_user_emp")
+     public @ResponseBody String update_user_emp(emp em,HttpSession session){	 
+    	 users us= (users) session.getAttribute("user_us");
+    	em.setUid(us.getUserid());
+    	int upemp = im.upemp(em);
+          return upemp+"";
+     }
+     //github.com/xieshuren1/xiangmu2999.git
+     
+     @RequestMapping("updatemima")
+     public @ResponseBody String updatemima(String passwordm,String passwo,HttpSession session){	 
+    	 users us= (users) session.getAttribute("user_us");
+    	 ByteSource bytes = ByteSource.Util.bytes(us.getUsername());
+         SimpleHash hash = new SimpleHash("MD5",passwordm,bytes,1234);
+         if(hash.toString().equals(us.getPasswordm())) {
+        	 SimpleHash hash2 = new SimpleHash("MD5",passwo,bytes,1234);
+        	 us.setPasswordm(hash2.toString());
+        	 int xiumi = im.xiumi(us);
+        	 return xiumi+"";
+         }
+          return "原始输入密码错误";
+     }
 }

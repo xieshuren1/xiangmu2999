@@ -59,5 +59,9 @@
     	select juesename from juese where jid=#{jid}
     </select>
     
-
+    <update id="upemp" parameterType="com.guigu.yaopin.xsr.doamin.emp">
+    	update emp set age=#{age},phone=#{phone} where uid=#{uid}
+    </update>
+    
+    
 </mapper>
