@@ -44,6 +44,7 @@ public class MyController {
      @RequestMapping("login_xsr")
      public @ResponseBody String login_xsr(users us, HttpSession session){
           Subject sub = SecurityUtils.getSubject();
+        
           UsernamePasswordToken tk = new UsernamePasswordToken(us.getUsername(),us.getPasswordm());
           try {
                sub.login(tk);
