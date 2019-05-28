@@ -129,7 +129,7 @@ public class DurglsxController {
 			return delConsumers_lsx;
 		}
 		
-	//客户信息表查询
+	//供货商信息表查询
 		@RequestMapping("showSuppliers")
 		public Map showSupplier(HttpServletRequest request) {
 			Map map=new HashMap();
@@ -147,14 +147,28 @@ public class DurglsxController {
 			return map;
 		}
 		
-		 //修改药品查询id
+		//新增供货商
+		@RequestMapping("addsSupplier")
+		public int addsSupplier(String supplierid,String suppliername,String suppliercontacts,String supplierphone,String address,String remarks) {
+			Supplier sup=new Supplier(Integer.parseInt(supplierid), suppliername, suppliercontacts, supplierphone, address, remarks);
+			int addsSupplier_lsx = lsx.addsSupplier_lsx(sup);
+			return addsSupplier_lsx;
+		}
+		//新增供货商
+		@RequestMapping("UPsSupplier")
+		public int UPsSupplier(String supplierid,String suppliername,String suppliercontacts,String supplierphone,String address,String remarks) {
+			Supplier sup=new Supplier(Integer.parseInt(supplierid), suppliername, suppliercontacts, supplierphone, address, remarks);
+			int addsSupplier_lsx = lsx.UpsSupplierslsx(sup);
+			return addsSupplier_lsx;
+		}		
+		 //修改供货商查询id
 		@RequestMapping("upSupplierIDs")
 		public Supplier upSupplierIDS(String ids) {
 			Supplier uplsx = lsx.upSupplierIDs_lsx(Integer.parseInt(ids));
 			
 			return uplsx;
 		}
-		//删除药品
+		//删除供货商
 		@RequestMapping("delSuppliers")
 		public int delSupplier(String ids) {
 			int delSuppliers_lsx = lsx.delSuppliergs_lsx(Integer.parseInt(ids));

@@ -48,7 +48,6 @@
          <if test="consumername!=''">
          consumername like "%"#{consumername}"%"
         </if>
-        
         <if test="consumerphone!=''">
         and consumerphone like "%"#{consumerphone}"%"
         </if>
@@ -95,8 +94,7 @@
  </insert>
  
  <update id="UpsSupplierslsx" parameterType="com.guigu.yaopin.lsx.entity.Supplier"  >
-     UPDATE consumer set suppliername=#{suppliername} ,suppliercontacts=#{suppliercontacts},supplierphone=#{supplierphone} ,address=#{address},
-     remarks=#{remarks} where supplierid=#{supplierid}
-    
+     UPDATE supplier set suppliername=#{suppliername},suppliercontacts=#{suppliercontacts},supplierphone=#{supplierphone},address=#{address},
+     remarks=#{remarks} where supplierid=#{supplierid}    
     </update>
 </mapper>

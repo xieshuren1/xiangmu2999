@@ -37,4 +37,8 @@ public class UsersService {
 		int deleteUsers = mapper.deleteUsers(idlist);
 		return deleteUsers;
 	}
+	public  List<Users> showUsersByIds(int jid){
+		 List<Users> showUsersByIds = mapper.showUsersByIds(jid);
+		return showUsersByIds;
+	}
 }

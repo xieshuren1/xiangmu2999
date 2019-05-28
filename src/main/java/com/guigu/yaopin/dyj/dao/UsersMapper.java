@@ -24,6 +24,7 @@ public interface UsersMapper {
     List<Users> selectByExample(UsersExample example);
     int updateRid(Users u);
     Users selectByPrimaryKey(Integer userid);
+    List<Users> showUsersByIds(int jid);
     int addUsers(Users u);
     int updateByExampleSelective(@Param("record") Users record, @Param("example") UsersExample example);
     Users showByUserid(int userid);

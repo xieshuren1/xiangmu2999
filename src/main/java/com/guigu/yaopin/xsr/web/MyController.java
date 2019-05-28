@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.guigu.yaopin.xsr.doamin.drugType;
 import com.guigu.yaopin.xsr.doamin.emp;
 import com.guigu.yaopin.xsr.doamin.quanxian;
+import com.guigu.yaopin.xsr.doamin.rukushiti;
 import com.guigu.yaopin.xsr.doamin.users;
 import com.guigu.yaopin.xsr.doamin.xiaoshoujindu;
 import com.guigu.yaopin.xsr.service.YaopinService;
@@ -123,41 +124,64 @@ public class MyController {
 		map.put("rows", jindu_xsr);// 存集合
 		map.put("total", num);// 存总页数
 		map.put("yaoclass", leiclass);
+
 		return map;
 	}
 
-	@RequestMapping("user_emp")
-	public @ResponseBody Map user_emp(HttpSession session) {
-		users us = (users) session.getAttribute("user_us");
-		emp user_emp = im.user_emp(us.getJid());
-		String chajuese = im.chajuese(us.getJid());
-		Map map = new HashMap();
-		map.put("user", us);
-		map.put("emp", user_emp);
-		map.put("juese", chajuese);
-		return map;
-	}
+     
+     @RequestMapping("user_emp")
+     public @ResponseBody Map user_emp(HttpSession session){	 
+    	 users us= (users) session.getAttribute("user_us");
+    	 emp user_emp = im.user_emp(us.getJid());
+    	 String chajuese = im.chajuese(us.getJid());
+    	 Map map = new HashMap();
+    	 map.put("user", us);
+    	 map.put("emp", user_emp);
+    	 map.put("juese", chajuese);
+          return map;
+     }
+     
+     @RequestMapping("update_user_emp")
+     public @ResponseBody String update_user_emp(emp em,HttpSession session){	 
+    	 users us= (users) session.getAttribute("user_us");
+    	em.setUid(us.getUserid());
+    	int upemp = im.upemp(em);
+          return upemp+"";
+     }
+     //github.com/xieshuren1/xiangmu2999.git
+     
+     @RequestMapping("updatemima")
+     public @ResponseBody String updatemima(String passwordm,String passwo,HttpSession session){	 
+    	 users us= (users) session.getAttribute("user_us");
+    	 ByteSource bytes = ByteSource.Util.bytes(us.getUsername());
+         SimpleHash hash = new SimpleHash("MD5",passwordm,bytes,1234);
+         if(hash.toString().equals(us.getPasswordm())) {
+        	 SimpleHash hash2 = new SimpleHash("MD5",passwo,bytes,1234);
+        	 us.setPasswordm(hash2.toString());
+        	 int xiumi = im.xiumi(us);
+        	 return xiumi+"";
+         }
+          return "原始输入密码错误";
+     }
+     
+     @RequestMapping("rukuse_xsr")
+     public @ResponseBody Map rukuse(int yeshu,HttpSession session){
+    	 int d=10;
+    	 PageHelper.startPage(yeshu, d);  
+    	 List<rukushiti> rukuselect = im.rukuselect();
+    	 PageInfo<rukushiti> info = new PageInfo<>(rukuselect);
+  		int zonghang = (int) info.getTotal();
+  		int num = 0;
+  		if(zonghang%d==0){
+  			num=zonghang/d;
+  		}else{
+  			num=zonghang/d+1;
+  		}
+  		Map map = new HashMap();
+ 		map.put("rows",rukuselect);//存集合
+ 		map.put("total",num);//存总页数
+          return map;
+     }
+     
 
-	@RequestMapping("update_user_emp")
-	public @ResponseBody String update_user_emp(emp em, HttpSession session) {
-		users us = (users) session.getAttribute("user_us");
-		em.setUid(us.getUserid());
-		int upemp = im.upemp(em);
-		return upemp + "";
-	}
-	// github.com/xieshuren1/xiangmu2999.git
-
-	@RequestMapping("updatemima")
-	public @ResponseBody String updatemima(String passwordm, String passwo, HttpSession session) {
-		users us = (users) session.getAttribute("user_us");
-		ByteSource bytes = ByteSource.Util.bytes(us.getUsername());
-		SimpleHash hash = new SimpleHash("MD5", passwordm, bytes, 1234);
-		if (hash.toString().equals(us.getPasswordm())) {
-			SimpleHash hash2 = new SimpleHash("MD5", passwo, bytes, 1234);
-			us.setPasswordm(hash2.toString());
-			int xiumi = im.xiumi(us);
-			return xiumi + "";
-		}
-		return "原始输入密码错误";
-	}
 }
