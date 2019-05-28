@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guigu.yaopin.dyj.dao.QueryVOMapper">
+<resultMap id="BaseResultMap" type="com.guigu.yaopin.dyj.pojo.QueryVO" >
+   <association property="r" javaType="com.guigu.yaopin.hjh.entity.Returngoods">
+   	<id column="rgid" property="rgid" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+   </association>
+   <association property="s" javaType="com.guigu.yaopin.hjh.entity.Sell">
+   <id column="sellid" property="sellid" jdbcType="INTEGER" />
+		<result column="cid" property="cid" jdbcType="INTEGER" />
+		<result column="fid" property="fid" jdbcType="INTEGER" />
+		<result column="pid" property="pid" jdbcType="INTEGER" />
+   </association>
+   <association property="f" javaType="com.guigu.yaopin.hjh.entity.Financial">
+   <id column="financialid" property="financialid" jdbcType="INTEGER" />
+    <result column="did" property="did" jdbcType="INTEGER" />
+    <result column="eid" property="eid" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="financialdate" property="financialdate" jdbcType="VARCHAR" />
+    <result column="financialmoney" property="financialmoney" jdbcType="VARCHAR" />
+    <result column="tid" property="tid" jdbcType="INTEGER" />
+   </association>
+   <association property="c" javaType="com.guigu.yaopin.hjh.entity.Consumer">
+   <id column="consumerid" property="consumerid" jdbcType="INTEGER" />
+    <result column="consumername" property="consumername" jdbcType="VARCHAR" />
+    <result column="consumercontacts" property="consumercontacts" jdbcType="VARCHAR" />
+    <result column="consumerphone" property="consumerphone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+   </association>
+   <association property="d" javaType="com.guigu.yaopin.hjh.entity.Durg">
+   <id column="durgid" property="durgid" jdbcType="INTEGER" />
+		<result column="durgname" property="durgname"
+			jdbcType="VARCHAR" />
+		<result column="durgbarcode" property="durgbarcode"
+			jdbcType="VARCHAR" />
+		<result column="specifications" property="specifications"
+			jdbcType="VARCHAR" />
+		<result column="durgunit" property="durgunit"
+			jdbcType="VARCHAR" />
+		<result column="durgbid" property="durgbid" jdbcType="VARCHAR" />
+		<result column="durgprice" property="durgprice"
+			jdbcType="VARCHAR" />
+		<result column="durgtype" property="durgtype"
+			jdbcType="INTEGER" />
+		<result column="manufacturer" property="manufacturer"
+			jdbcType="VARCHAR" />
+   </association>
+   <association property="e" javaType="com.guigu.yaopin.dyj.pojo.Emp">
+   	 <id column="empid" property="empid" jdbcType="INTEGER" />
+    <result column="empname" property="empname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+   </association>
+  </resultMap>
+  <select id="findQueryVO" parameterType="com.guigu.yaopin.dyj.pojo.QueryVO" resultMap="BaseResultMap">
+  SELECT r.rgid,s.sellid,c.consumername,d.durgname,d.manufacturer,e.empname,f.* from returngoods r,sell s,financial f,consumer c,durg d,emp e 
+<where>
+and r.sid=s.sellid 
+and r.fid=f.financialid and s.cid=c.consumerid and f.did=d.durgid and f.eid=e.empid 
+<if test="e.empname!=null and e.empname!='' ">
+	and e.empname like "%"#{e.empname}"%"
+</if>
+<if test="d.durgname!=null and d.durgname!='' ">
+	and d.durgname like "%"#{d.durgname}"%"
+</if>
+<if test="c.consumername!=null and c.consumername!='' ">
+	and c.consumername like "%"#{c.consumername}"%"
+</if>
+</where>ORDER BY f.financialdate desc  LIMIT #{pageNum},#{maxPage}
+  </select>
+  <select id="count" parameterType="com.guigu.yaopin.dyj.pojo.QueryVO" resultType="int">
+  SELECT count(*) from returngoods r,sell s,financial f,consumer c,durg d,emp e <where>
+and r.sid=s.sellid 
+and r.fid=f.financialid and s.cid=c.consumerid and f.did=d.durgid and f.eid=e.empid
+<if test="e.empname!=null and e.empname!='' ">
+	and e.empname like "%"#{e.empname}"%"
+</if>
+<if test="d.durgname!=null and d.durgname!='' ">
+	and d.durgname like "%"#{d.durgname}"%"
+</if>
+<if test="c.consumername!=null and c.consumername!='' ">
+	and c.consumername like "%"#{c.consumername}"%"
+</if>
+</where> ORDER BY f.financialdate desc 
+  </select>
+</mapper>
