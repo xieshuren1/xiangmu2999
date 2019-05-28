@@ -162,7 +162,7 @@ public class MyController {
      
      @RequestMapping("rukuse_xsr")
      public @ResponseBody Map rukuse(int yeshu,HttpSession session){
-    	 int d=15;
+    	 int d=10;
     	 PageHelper.startPage(yeshu, d);  
     	 List<rukushiti> rukuselect = im.rukuselect();
     	 PageInfo<rukushiti> info = new PageInfo<>(rukuselect);
