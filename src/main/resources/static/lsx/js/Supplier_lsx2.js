@@ -19,6 +19,7 @@ $(function() {
 				'modal' : true,
 				'buttons' : {
 					'确定' : function() {
+						findsupplier();
 						var ypname=$('#ghname1').val();
 						var ypcode=$('#gh1').val();
 						var ypsize=$('#ghtell1').val();

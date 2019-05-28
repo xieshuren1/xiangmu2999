@@ -48,7 +48,6 @@
          <if test="consumername!=''">
          consumername like "%"#{consumername}"%"
         </if>
-        
         <if test="consumerphone!=''">
         and consumerphone like "%"#{consumerphone}"%"
         </if>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+ <link rel="shortcut icon" href="wenjian2/img/favicon.ico">
+    
+    <!-- global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" href="wenjian2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="wenjian2/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="wenjian2/css/font-icon-style.css">
+    <link rel="stylesheet" href="wenjian2/css/style.default.css" id="theme-stylesheet">
+	<link rel="stylesheet" href="wenjian2/css/ui-elements/button.css">
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="wenjian2/css/ui-elements/card.css">
+    <link rel="stylesheet" href="wenjian2/css/style.css">
+    <style>
+    	tr{
+    		text-align: center;
+    	}
+    	td{
+    		text-align: center;
+    	}
+    	th{
+    		text-align: center;
+    	}
+    </style>
+<body><br>
+<div  style="position: absolute;left: 30px;">
+				<h3><i class='icon-home'></i>&nbsp;&nbsp;入库明细</h3>
+			</div><br><hr>
+			<table id='tabl' class="table table-hover">
+                  
+                </table>
+                <hr><br>
+                <div align="center"> <font id='font1'>1</font> /<font id='font2'></font></div>
+              
+				<div class="col-md-12 seventh-button mt-5" align="center" style="position: absolute;top: 600px;" >
+                      <a onclick="shangyi(-1)" class="btn btn-boxs btn-2" style="width: 100px;"><font color="black" style="vertical-align: inherit;"> 上一页 </font></a>
+                      <a onclick="shangyi(1)" class="btn btn-boxs btn-3" style="width: 100px;"><font color="black" style="vertical-align: inherit;"> 下一页 </font></a> 
+                </div>
+</body>
+<script type="text/javascript" src="wenjian_xsr/js_xsr/jquery-3.3.1.js"></script>
+	<script type="text/javascript">
+	var yy=1;
+	fenye(yy);
+		function fenye(page){
+			 $.ajax({
+		         url:"rukuse_xsr",
+		         data:{
+		              yeshu:page
+		         },
+		         dataType : "json",
+		         success:function(da){
+		        	 $("#font2").html(da.total);
+		        	 $("#tabl").html("<tr class='bg-info text-white'><th>入库编号</th><th>供货商名称</th><th>药品名称</th><th>药品条码</th><th>入库数量</th><th>入库时间</th><th>操作员工</th></tr>");
+		        	 for(i=0;i<da.rows.length;i++){
+		        		 var cl="";
+		        		 if(i%2!=0){
+		        			 cl="table-info";
+		        		 }
+		        		 $("#tabl").append("<tr class='"+cl+"'><th scope='row'>"+da.rows[i].gsid+"</th><td>"+da.rows[i].suppliername+"</td><td>"+da.rows[i].durgname+"</td><td>"+da.rows[i].durgbarcode+"</td><td>"+da.rows[i].num+"</td><td>"+da.rows[i].financialdate+"</td><td>"+da.rows[i].empname+"</td></tr>");
+		        	 }
+		         }
+		         
+			 })
+		}
+		
+		function shangyi(num){
+			if(yy==1 && num==-1){
+				return;
+			}
+			if(yy==$("#font2").html() && num==1){
+				return;
+			}
+			yy=yy+num;
+			$("#font1").html(yy);
+			fenye(yy);
+		}
+		 
+	</script>
+
+    <!--Global Javascript -->
+    <script src="wenjian2/js/jquery.min.js"></script>
+    <script src="wenjian2/js/popper/popper.min.js"></script>
+    <script src="wenjian2/js/tether.min.js"></script>
+    <script src="wenjian2/js/bootstrap.min.js"></script>
+    <script src="wenjian2/js/jquery.cookie.js"></script>
+    <script src="wenjian2/js/jquery.validate.min.js"></script> 
+    <script src="wenjian2/js/chart.min.js"></script> 
+    <script src="wenjian2/js/front.js"></script> 
+    
+    <!--Core Javascript -->
+    <script src="wenjian2/js/mychart.js"></script>
+</html>

@@ -31,7 +31,9 @@ public class AuthRealm extends AuthorizingRealm{
 		//token携带了用户信息
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
        		 //获取前端输入的用户名
+        
          	String userName  = usernamePasswordToken.getUsername();
+         
 			ByteSource bytes = ByteSource.Util.bytes(usernamePasswordToken.getPassword());
 			String pass = bytes.toString();
 			users  user = im.login_xsr(new users(0,userName,"",0,"",""));

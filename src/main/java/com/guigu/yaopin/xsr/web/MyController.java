@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.guigu.yaopin.xsr.doamin.drugType;
 import com.guigu.yaopin.xsr.doamin.emp;
 import com.guigu.yaopin.xsr.doamin.quanxian;
+import com.guigu.yaopin.xsr.doamin.rukushiti;
 import com.guigu.yaopin.xsr.doamin.users;
 import com.guigu.yaopin.xsr.doamin.xiaoshoujindu;
 import com.guigu.yaopin.xsr.service.YaopinService;
@@ -36,93 +37,97 @@ import java.util.Map;
 
 @Controller
 public class MyController {
-     @Autowired
-     private YaopinService im;
+	@Autowired
+	private YaopinService im;
 
-     private Map cunjihe = new HashMap();
+	private Map cunjihe = new HashMap();
 
-     @RequestMapping("login_xsr")
-     public @ResponseBody String login_xsr(users us, HttpSession session){
-          Subject sub = SecurityUtils.getSubject();
-          UsernamePasswordToken tk = new UsernamePasswordToken(us.getUsername(),us.getPasswordm());
-          try {
-               sub.login(tk);
-              
-               users user= im.login_xsr(us);
-               session.setAttribute("user_us",user);
-               session.setAttribute("user_usid",user.getUserid());
-               im.logintime(user.getUserid());
-               String selectlotime = im.selectlotime(user.getUserid());
-               if(selectlotime==null) {
-            	   selectlotime="第一次登录";
-               }
-               session.setAttribute("logindate",selectlotime);
-               return "1";
-          }catch (Exception e){
-               System.out.println("登录失败");
-          }
-          return "0";
-     }
+	@RequestMapping("login_xsr")
+	public @ResponseBody String login_xsr(users us, HttpSession session) {
+		Subject sub = SecurityUtils.getSubject();
 
-     @RequestMapping("quanxian_xsr")
-     public @ResponseBody List<quanxian > chaquanxian(String nid,HttpSession session){	 
-          int nnid=Integer.parseInt(nid);
-          List<String> qx1=new ArrayList<String>();
-          
-          if(nnid==0) {
-        	  users us= (users) session.getAttribute("user_us");
-         	  String qx = us.getQuanxian();
-         	  String[] split = qx.split(",");         	  
-         	  for (String string : split) {
-    			qx1.add(string);
-         	  }
-          }  else { 
-        	  qx1=null;
-          }
-          
-          quanxian quanxi=new quanxian(0, null, null, nnid,qx1);
-          List<quanxian> arr = im.chaquanxian(quanxi);
-          return arr;
-     }
+		UsernamePasswordToken tk = new UsernamePasswordToken(us.getUsername(), us.getPasswordm());
+		try {
+			sub.login(tk);
 
-     @RequestMapping("username_sclogintime")
-     public @ResponseBody List<String> username_sclogintime(HttpSession session){	 
-    	 users us= (users) session.getAttribute("user_us");
-    	 List<String> arr = new ArrayList<String>();
-    	 arr.add(us.getUsername());
-    	 arr.add((String)session.getAttribute("logindate"));
-          return arr;
-     }
+			users user = im.login_xsr(us);
+			session.setAttribute("user_us", user);
+			session.setAttribute("user_usid", user.getUserid());
+			/* im.logintime(user.getUserid()); */
+			/*
+			 * String selectlotime = im.selectlotime(user.getUserid());
+			 * if(selectlotime==null) { selectlotime="第一次登录"; }
+			 * 
+			 * session.setAttribute("logindate",selectlotime);
+			 */
+			return "1";
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("登录失败");
+		}
+		return "0";
+	}
 
-     
-     @RequestMapping("jinduchaxun")
-     public @ResponseBody Map jinduchaxun(int dangqianyeshu,String leixing,HttpSession session){   
-    	 List<drugType> leiclass = im.leiclass();
-    	 for (drugType drugType : leiclass) {
+	@RequestMapping("quanxian_xsr")
+	public @ResponseBody List<quanxian> chaquanxian(String nid, HttpSession session) {
+		int nnid = Integer.parseInt(nid);
+		List<String> qx1 = new ArrayList<String>();
+
+		if (nnid == 0) {
+			users us = (users) session.getAttribute("user_us");
+			String qx = us.getQuanxian();
+			String[] split = qx.split(",");
+			for (String string : split) {
+				qx1.add(string);
+			}
+		} else {
+			qx1 = null;
+		}
+
+		quanxian quanxi = new quanxian(0, null, null, nnid, qx1);
+		List<quanxian> arr = im.chaquanxian(quanxi);
+		return arr;
+	}
+
+	@RequestMapping("username_sclogintime")
+	public @ResponseBody List<String> username_sclogintime(HttpSession session) {
+		users us = (users) session.getAttribute("user_us");
+		List<String> arr = new ArrayList<String>();
+		arr.add(us.getUsername());
+		arr.add((String) session.getAttribute("logindate"));
+		return arr;
+	}
+
+	@RequestMapping("jinduchaxun")
+	public @ResponseBody Map jinduchaxun(int dangqianyeshu, String leixing, HttpSession session) {
+		List<drugType> leiclass = im.leiclass();
+		for (drugType drugType : leiclass) {
 			cunjihe.put(drugType.getTypename(), drugType.getTypeid());
-    	 }
-    	 List<xiaoshoujindu> jindu_xsr=new ArrayList<xiaoshoujindu>();
-    	 if(cunjihe.get(leixing)!=null) {
-    		 PageHelper.startPage(dangqianyeshu, 16);  
-    		 jindu_xsr = im.jindu_xsr12((int)cunjihe.get(leixing));
-    	 } else {
-    		 PageHelper.startPage(dangqianyeshu, 16); 
-    		 jindu_xsr = im.jindu_xsr();  
-    	 }  
-    	 PageInfo<xiaoshoujindu> info = new PageInfo<>(jindu_xsr);
- 		int zonghang = (int) info.getTotal();
- 		int num = 0;
- 		if(zonghang%16==0){
- 			num=zonghang/16;
- 		}else{
- 			num=zonghang/16+1;
- 		}
- 		Map map = new HashMap();
-		map.put("rows",jindu_xsr);//存集合
-		map.put("total",num);//存总页数
+		}
+		List<xiaoshoujindu> jindu_xsr = new ArrayList<xiaoshoujindu>();
+		if (cunjihe.get(leixing) != null) {
+			PageHelper.startPage(dangqianyeshu, 16);
+			jindu_xsr = im.jindu_xsr12((int) cunjihe.get(leixing));
+		} else {
+			PageHelper.startPage(dangqianyeshu, 16);
+			jindu_xsr = im.jindu_xsr();
+		}
+		PageInfo<xiaoshoujindu> info = new PageInfo<>(jindu_xsr);
+		int zonghang = (int) info.getTotal();
+		int num = 0;
+		if (zonghang % 16 == 0) {
+			num = zonghang / 16;
+		} else {
+			num = zonghang / 16 + 1;
+		}
+		Map map = new HashMap();
+		map.put("rows", jindu_xsr);// 存集合
+		map.put("total", num);// 存总页数
 		map.put("yaoclass", leiclass);
-          return map;
-     }
+
+		return map;
+	}
+
      
      @RequestMapping("user_emp")
      public @ResponseBody Map user_emp(HttpSession session){	 
@@ -158,4 +163,25 @@ public class MyController {
          }
           return "原始输入密码错误";
      }
+     
+     @RequestMapping("rukuse_xsr")
+     public @ResponseBody Map rukuse(int yeshu,HttpSession session){
+    	 int d=10;
+    	 PageHelper.startPage(yeshu, d);  
+    	 List<rukushiti> rukuselect = im.rukuselect();
+    	 PageInfo<rukushiti> info = new PageInfo<>(rukuselect);
+  		int zonghang = (int) info.getTotal();
+  		int num = 0;
+  		if(zonghang%d==0){
+  			num=zonghang/d;
+  		}else{
+  			num=zonghang/d+1;
+  		}
+  		Map map = new HashMap();
+ 		map.put("rows",rukuselect);//存集合
+ 		map.put("total",num);//存总页数
+          return map;
+     }
+     
+
 }
