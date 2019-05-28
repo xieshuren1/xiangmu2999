@@ -1,5 +1,6 @@
 package com.guigu.yaopin.dyj.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,5 +36,43 @@ public class JueseController {
 		map.put("rows",showNews);
 		map.put("total",num);
 		return map;	
+	}
+	@RequestMapping("wenjian_dyj/addRole")
+	public int addRole(String juesename){
+		int addRole = js.addRole(juesename);
+		return addRole;
+	}
+	@RequestMapping("wenjian_dyj/showRoleByIds")
+	public Juese showRoleByIds(int jid){
+		Juese showById = js.showById(jid);
+		return showById;
+	}
+	@RequestMapping("wenjian_dyj/upRole")
+	public int upRole(Juese j){
+		int upRole = js.upRole(j);
+		return upRole;
+	}
+	@RequestMapping("wenjian_dyj/delRole")
+	public int delRole(int jid){
+		int delRole = js.delRole(jid);
+		return delRole;
+	}
+	@RequestMapping("wenjian_dyj/showTreesById")
+	public List showTreesById(int jid){
+		Juese showById = js.showById(jid);
+		String quanxian=showById.getQuanxian();
+		List list=new ArrayList<>();
+		if(quanxian!=null){
+			String[] split = quanxian.split(",");
+			for (String string : split) {
+				list.add(string);
+			}
+		}
+		return list;
+	}
+	@RequestMapping("wenjian_dyj/upTrees")
+	public int upTrees(Juese j){
+		int upTrees = js.upTrees(j);
+		return upTrees;
 	}
 }
