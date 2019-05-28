@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="easyui/jquery.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="easyui/jquery.easyui.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<link rel="stylesheet" type="text/css"
+	href="easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css" />
+<script src="easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"
+	charset="utf-8"></script>
+</head>
+<body>
+	<div class="container">
+		<p class="form-inline">
+
+			<input type="text" class="form-control" placeholder="供货商名称"
+				id="input1" />&nbsp;
+			<button type="button" class="btn btn-primary" data-toggle="button"
+				onclick="auditing(1)" id="b">查询药物</button>
+
+		</p>
+		<table class="table  table-bordered table-sm small" id="tableauditing">
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</table>
+		<form id="f1">
+			<p>
+				編號：<input class="textbox" id="bianhao" name="bianhao"
+					style="height: 30px" readonly="readonly" />
+			</p>
+			<p>
+				数量：<input class="textbox" id="shuliang" onkeyup="douw()"
+					name="shuliang" type="number" style="height: 30px" />
+			</p>
+			<p>
+				金额：<input class="textbox" id="jine" style="height: 30px" name="jine"
+					readonly="readonly" />
+			</p>
+
+
+		</form>
+		<div class="container small"
+			style="position: fixed; left: 400px; top: 400px">
+			<ul class="pagination">
+				<li class="page-item"><a class="page-link" href="#"
+					onclick="lastpage1()">上一页</a></li>
+				<li class="page-item"><a class="page-link" href="#" id="a1">1</a></li>
+				<li class="page-item"><a class="page-link" href="#" id="a3">3</a></li>
+				<li class="page-item"><a class="page-link" href="#"
+					onclick="nextpage1()">下一页</a></li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript" src="hjhjs/durgrejection.js">
+		
+	</script>
+</body>
+</html>

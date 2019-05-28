@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="easyui/jquery.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="easyui/jquery.easyui.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<link rel="stylesheet" type="text/css"
+	href="easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css" />
+<script src="easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"
+	charset="utf-8"></script>
+</head>
+<body>
+	<div class="container">
+		<p class="form-inline">
+
+			<input type="text" class="form-control" placeholder="药品名称"
+				id="minput" />&nbsp;
+			<button type="button" class="btn btn-primary" data-toggle="button"
+				id="mb" onclick="mek()">查询药物</button>
+			<a style="width: 200px"></a>
+			<button type="button" class="btn btn-primary" onclick="mkeing.d()"
+				data-toggle="button">药物销售</button>
+		</p>
+		<table id="durgt"></table>
+		<form id="mf">
+		<p>
+				编号：<input class="textbox" id="mbh" name="mbh" style="height: 30px"
+					readonly="readonly" />
+			</p>
+			<p>
+				名称：<input class="textbox" id="id" name="id" style="height: 30px"
+					readonly="readonly" />
+			</p>
+			<p>
+				数量：<input class="textbox" id="xm" onkeyup="mkeing.out()" name="xm"
+					type="number" style="height: 30px" />
+			</p>
+			<p>
+				金额：<input class="textbox" id="dlm" style="height: 30px" name="dlm"
+					readonly="readonly" />
+			</p>
+			<p>
+				库存：<input class="textbox" id="mkc" style="height: 30px" name="mkc"
+					readonly="readonly" />
+			</p>
+			<p>
+				客戶：<select id="muser"></select>
+			</p>
+<p>
+				支付方式：<select id="payment">
+				<option value="1" > 微信</option>
+				<option value="2"> 支付宝</option>
+				<option value="3"> 现金</option>
+				<option value="4"> 银行卡</option>
+				
+				</select>
+			</p>
+			<p>
+				付款方式：<select id="paymentmoney">
+				<option value="1" > 一次付清</option>
+				<option value="2"> 二次回款</option>
+				
+				
+				</select>
+			</p>
+		</form>
+	</div>
+	<script type="text/javascript" src="hjhjs/marketing.js">
+		
+	</script>
+
+</body>
+
+
+</html>

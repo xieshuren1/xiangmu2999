@@ -29,6 +29,7 @@
 		</table>
 	</div>
 	<div align="center" style="width: 1000px;">
+
 		<ul class="pagination" style="position: relative; margin: 0px 500px;"></ul>
 	</div>
 	<div class="modal fade" id="myModal" data-backdrop="static">
@@ -161,6 +162,9 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- <ul class="pagination" style="position: absolute;left: 40%;top: 70%;"></ul> -->
+
 	</div>
 	<script src="../wenjian2/js/jquery.min.js"></script>
 	<script src="../wenjian2/js/popper/popper.min.js"></script>
@@ -304,8 +308,6 @@
 
 		}
 		function updateRole() {
-			alert(jid);
-			alert($("#rolename1").val());
 			$.ajax({
 				Type : "post",
 				url : "upRole",

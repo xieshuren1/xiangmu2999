@@ -81,4 +81,10 @@ public class YaopinServiceimpol implements YaopinService {
 		String chajuese = dao.chajuese(jid);
 		return chajuese;
 	}
+	
+	@Override
+	public int upemp(emp em) {
+		int upemp = dao.upemp(em);
+		return upemp;
+	}
 }

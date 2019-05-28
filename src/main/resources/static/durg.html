@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="easyui/jquery.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="easyui/jquery.easyui.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<link rel="stylesheet" type="text/css"
+	href="easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css" />
+<script src="easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"
+	charset="utf-8"></script>
+</head>
+<body>
+	<div class="container">
+		<button type="button" class="btn dropdown-toggle" id="dropdownMenu1"
+			data-toggle="dropdown">
+			药品类别 <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"
+			id="u">
+
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="#" style="text-decoration: none" id="a1"></a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="#" style="text-decoration: none" id="a2"></a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="#" style="text-decoration: none" id="a3"></a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="#" style="text-decoration: none" id="a4"></a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="#" style="text-decoration: none" id="a5"></a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="#" style="text-decoration: none" id="a6"></a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="#" style="text-decoration: none" id="a7"></a></li>
+
+
+		</ul>
+		<p class="form-inline">
+
+			<input type="text" class="form-control" placeholder="药品名称" id="input" />&nbsp;
+			<button type="button" class="btn btn-primary" data-toggle="button"
+				onclick="s(0)" id="b">查询药物</button>
+			<a style="width: 200px"></a>
+			<button type="button" class="btn btn-primary" data-toggle="button"
+				onclick="user.d()">药物采購</button>
+		</p>
+
+
+		<table id="ts"></table>
+		<form id="f">
+			<p>
+				編號：<input class="textbox" id="id" name="id" style="height: 30px"
+					readonly="readonly" />
+			</p>
+			<p>
+				数量：<input class="textbox" id="xm" onkeyup="user.out()" name="xm"
+					type="number" style="height: 30px" />
+			</p>
+			<p>
+				金额：<input class="textbox" id="dlm" style="height: 30px" name="dlm"
+					 readonly="readonly" />
+			</p>
+			<p>
+				供貨商：<select id="dept"></select>
+			</p>
+
+		</form>
+	</div>
+
+	<script type="text/javascript" src="hjhjs/durg.js">
+	
+	</script>
+
+</body>
+</html>
