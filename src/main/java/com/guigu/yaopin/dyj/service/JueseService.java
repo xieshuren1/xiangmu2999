@@ -26,4 +26,28 @@ public class JueseService {
 		int count = mapper.count(vo);
 		return count;
 	}
+	public int addRole(String juesename){
+		int addRole = mapper.addRole(juesename);
+		return addRole;
+	}
+	public Juese showById(int jid){
+		Juese j= mapper.selectByPrimaryKey(jid);
+		return j;
+	}
+	public int upRole(Juese j){
+		int updateByPrimaryKey = mapper.updateByPrimaryKey1(j);
+		return updateByPrimaryKey;
+	}
+	public int delRole(int jid){
+		int deleteByPrimaryKey = mapper.deleteByPrimaryKey(jid);
+		return deleteByPrimaryKey;
+	}
+	public Juese showTreesById(int jid){
+		Juese j = mapper.selectByPrimaryKey(jid);
+		return j;
+	}
+	public int upTrees(Juese j){
+		int u = mapper.updateByPrimaryKey(j);
+		return u;
+	}
 }

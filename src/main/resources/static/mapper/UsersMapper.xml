@@ -128,6 +128,9 @@
   	and  e.uid=u.userid and u.userid=#{userid}
   </where>
   </select>
+  <select id="showUsersByIds" parameterType="int" resultType="com.guigu.yaopin.dyj.pojo.Users">
+  	SELECT * from users  where jid=#{jid} 
+  </select>
   <insert id="addUsers" parameterType="com.guigu.yaopin.dyj.pojo.Users" >
 	    <selectKey resultType="int" keyProperty="userid" keyColumn="userid" order="AFTER" >
 	      SELECT LAST_INSERT_ID()

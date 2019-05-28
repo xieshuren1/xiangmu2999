@@ -59,4 +59,9 @@ public class UsersController {
 		int deleteEmp = es.deleteEmp(idlist);
 		return deleteEmp;
 	}
+	@RequestMapping("/showUsersByIds")
+	public  List<Users> showUsersByIds(int jid){
+		 List<Users> showUsersByIds = us.showUsersByIds(jid);
+		return showUsersByIds;
+	}
 }

@@ -16,93 +16,425 @@
 	id="theme-stylesheet">
 </head>
 <body>
-	<div  class="form-inline" style="position: absolute;margin: 10px 0px 0px 400px ; ">
-		<label for="name">角色名称：</label>
-    	<input type="text" class="form-control" id="juesename" placeholder="角色名称">
-    	<button  class="btn btn-primary" onclick="showRole(1)">查询</button>
+	<div class="form-inline"
+		style="position: absolute; margin: 10px 0px 0px 400px;">
+		<label for="name">角色名称：</label> <input type="text"
+			class="form-control" id="juesename" placeholder="角色名称">
+		<button class="btn btn-primary" onclick="showRole(1)">查询</button>
 	</div>
 	<div style="height: 700px;">
-	<table class="table table-hover" id="nt" >
-		
-		
-	</table>
+		<table class="table table-hover" id="nt">
+
+
+		</table>
 	</div>
 	<div align="center" style="width: 1000px;">
-		<ul class="pagination" style="position: relative;margin: 0px 500px;"></ul>
+		<ul class="pagination" style="position: relative; margin: 0px 500px;"></ul>
+	</div>
+	<div class="modal fade" id="myModal" data-backdrop="static">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+
+				<!-- 模态框头部 -->
+				<div class="modal-header">
+					<h4 class="modal-title">角色添加</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- 模态框主体 -->
+				<div class="modal-body">
+					<input type="text" class="form-control" id="rolename"
+						placeholder="角色名称" />
+				</div>
+
+				<!-- 模态框底部 -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-primary"
+						onclick="addRole()">添加</button>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">关闭</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="myModal1" data-backdrop="static">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+
+				<!-- 模态框头部 -->
+				<div class="modal-header">
+					<h4 class="modal-title">角色修改</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- 模态框主体 -->
+				<div class="modal-body">
+					<input type="text" class="form-control" id="rolename1"
+						placeholder="角色名称" />
+				</div>
+
+				<!-- 模态框底部 -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-primary"
+						onclick="updateRole()">修改</button>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">关闭</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="myModal2" data-backdrop="static">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+
+				<!-- 模态框头部 -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- 模态框主体 -->
+				<div class="modal-body">
+					<strong>该角色下员工引用，不能删除</strong>
+				</div>
+
+				<!-- 模态框底部 -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">关闭</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="myModal3" data-backdrop="static">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+
+				<!-- 模态框头部 -->
+				<div class="modal-header">
+					<h4 class="modal-title">分配功能</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- 模态框主体 -->
+				<div class="modal-body">
+					<table class="table table-hover" id="tt">
+
+
+					</table>
+				</div>
+
+				<!-- 模态框底部 -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-primary"
+						onclick="quanxian()">分配</button>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">关闭</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+					<h4 class="modal-title" id="exampleModalLabel">确认框</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="message-text" class="control-label">确定要删除该角色吗？</label>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					<button type="button" class="btn btn-primary" onclick="queren()">确认</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script src="../wenjian2/js/jquery.min.js"></script>
 	<script src="../wenjian2/js/popper/popper.min.js"></script>
 	<script src="../wenjian2/js/tether.min.js"></script>
-	<script src="../wenjian2/js/bootstrap.min.js"></script>
+	<!-- <script src="../wenjian2/js/bootstrap.min.js"></script> -->
 	<script src="../wenjian2/js/jquery.cookie.js"></script>
 	<script src="../wenjian2/js/jquery.validate.min.js"></script>
 	<script src="../wenjian2/js/chart.min.js"></script>
 	<script src="../wenjian2/js/front.js"></script>
-	<link rel="stylesheet"
-		href="3.5js/bootstrap.min.css" />
+	<link rel="stylesheet" href="3.5js/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap-paginator.js"></script>
 	<script type="text/javascript">
+		$('#myModal').on('hide.bs.modal', function() {
+			$("#rolename").val('');
+		})
 		showRole(1);
 		function showRole(page) {
+			$
+					.ajax({
+						url : "showRole2",
+						data : {
+							yeshu : page,
+							juesename : $("#juesename").val()
+						},
+						dataType : "json",
+						success : function(da) {
+							/* if (da.total == 0) {
+								$("#nt").html("<tr><td>暂时没有公告新闻</td></tr>");
+								return;
+							} */
+							$("#nt").empty();
+							var tr3 = "<tr  style='text-align: left;'><td colspan='5'><button type='button' class='btn btn-warning' data-target='#myModal' data-toggle='modal'>添加</button></td></tr>";
+							$("#nt").append(tr3);
+							var tr = "<tr class='bg-info text-white' style='text-align: center;'><th>角色编号</th><th>角色名称</th><th  colspan='3'>操作</th></tr>";
+							$("#nt").append(tr);
+							for (i = 0; i < da.rows.length; i++) {
+								var tr1 = "";
+								if ((i + 1) % 2 == 0) {
+									if ((i + 1) / 2 == 1) {
+										tr1 = "<tr class='table-warning' style='text-align: center;'><th scope='row'>"
+												+ da.rows[i].jid
+												+ "</th><td>"
+												+ da.rows[i].juesename
+												+ "</td><td><button type='button' class='btn btn-primary' onclick='delrole("
+												+ da.rows[i].jid
+												+ ")' >删除</button></td><td><button type='button' class='btn btn-warning' onclick='uprole("
+												+ da.rows[i].jid
+												+ ")'>修改</button></td><td><button type='button' class='btn btn-info' onclick='fenpei("
+												+ da.rows[i].jid
+												+ ")'>分配功能</button></td></tr>";
+									} else {
+										tr1 = "<tr class='table-success' style='text-align: center;'><th scope='row'>"
+												+ da.rows[i].jid
+												+ "</th><td>"
+												+ da.rows[i].juesename
+												+ "</td><td><button type='button' class='btn btn-primary' onclick='delrole("
+												+ da.rows[i].jid
+												+ ")' >删除</button></td><td><button type='button' class='btn btn-warning' onclick='uprole("
+												+ da.rows[i].jid
+												+ ")'>修改</button></td><td><button type='button' class='btn btn-info' onclick='fenpei("
+												+ da.rows[i].jid
+												+ ")'>分配功能</button></td></tr>";
+									}
+								} else {
+									tr1 = "<tr style='text-align: center;'><th scope='row'>"
+											+ da.rows[i].jid
+											+ "</th><td>"
+											+ da.rows[i].juesename
+											+ "</td><td><button type='button' class='btn btn-primary' onclick='delrole("
+											+ da.rows[i].jid
+											+ ")' >删除</button></td><td><button type='button' class='btn btn-warning' onclick='uprole("
+											+ da.rows[i].jid
+											+ ")'>修改</button></td><td><button type='button' class='btn btn-info' onclick='fenpei("
+											+ da.rows[i].jid
+											+ ")'>分配功能</button></td></tr>";
+								}
+								$("#nt").append(tr1);
+							}
+							$(".pagination").bootstrapPaginator(
+									{
+										bootstrapMajorVersion : 1, //版本
+										currentPage : page, //当前页数
+										numberOfPages : 3, //最多显示Page页
+										totalPages : da.total, //所有数据可以显示的页数
+										itemTexts : function(type, page,
+												current) {//设置分页按钮显示字体样式
+											switch (type) {
+											case "first":
+												return "首页";
+											case "prev":
+												return "上一页";
+											case "next":
+												return "下一页";
+											case "last":
+												return "末页";
+											case "page":
+												return page;
+											}
+										},
+										onPageClicked : function(e,
+												originalEvent, type, page) {
+											showRole(page);
+										}
+									});
+						}
+					});
+
+		}
+		function addRole() {
 			$.ajax({
-				url : "showRole2",
+				Type : "post",
+				url : "addRole",
 				data : {
-					yeshu : page,
-					juesename: $("#juesename").val()
+					juesename : $("#rolename").val(),
 				},
 				dataType : "json",
 				success : function(da) {
-					/* if (da.total == 0) {
-						$("#nt").html("<tr><td>暂时没有公告新闻</td></tr>");
-						return;
-					} */
-					$("#nt").empty();
-					var tr3="<tr  style='text-align: left;'><td colspan='5'><button type='button' class='btn btn-warning' onclick='addRole()'>添加</button></td></tr>";
-					$("#nt").append(tr3);
-					var tr="<tr class='bg-info text-white' style='text-align: center;'><th>角色编号</th><th>角色名称</th><th  colspan='3'>操作</th></tr>";
-					$("#nt").append(tr);
-					for (i = 0; i < da.rows.length; i++) {
-						var tr1="";
-						if((i+1)%2==0){
-							if((i+1)/2==1){
-								tr1="<tr class='table-warning' style='text-align: center;'><th scope='row'>"+da.rows[i].jid+"</th><td>"+da.rows[i].juesename+"</td><td><button type='button' class='btn btn-primary' onclick='delrole("+da.rows[i].jid+")' >删除</button></td><td><button type='button' class='btn btn-warning' onclick='uprole("+da.rows[i].jid+")'>修改</button></td><td><button type='button' class='btn btn-info' onclick='fenpei("+da.rows[i].jid+")'>分配功能</button></td></tr>";
-							}else{
-								tr1="<tr class='table-success' style='text-align: center;'><th scope='row'>"+da.rows[i].jid+"</th><td>"+da.rows[i].juesename+"</td><td><button type='button' class='btn btn-primary' onclick='delrole("+da.rows[i].jid+")' >删除</button></td><td><button type='button' class='btn btn-warning' onclick='uprole("+da.rows[i].jid+")'>修改</button></td><td><button type='button' class='btn btn-info' onclick='fenpei("+da.rows[i].jid+")'>分配功能</button></td></tr>";
-							}
-						}else{
-							tr1="<tr style='text-align: center;'><th scope='row'>"+da.rows[i].jid+"</th><td>"+da.rows[i].juesename+"</td><td><button type='button' class='btn btn-primary' onclick='delrole("+da.rows[i].jid+")' >删除</button></td><td><button type='button' class='btn btn-warning' onclick='uprole("+da.rows[i].jid+")'>修改</button></td><td><button type='button' class='btn btn-info' onclick='fenpei("+da.rows[i].jid+")'>分配功能</button></td></tr>";
-						}
-						$("#nt").append(tr1);
-					}
-					$(".pagination").bootstrapPaginator({
-						bootstrapMajorVersion : 1, //版本
-						currentPage : page, //当前页数
-						numberOfPages : 3, //最多显示Page页
-						totalPages : da.total, //所有数据可以显示的页数
-						itemTexts : function(type, page, current) {//设置分页按钮显示字体样式
-							switch (type) {
-							case "first":
-								return "首页";
-							case "prev":
-								return "上一页";
-							case "next":
-								return "下一页";
-							case "last":
-								return "末页";
-							case "page":
-								return page;
-							}
-						},
-						onPageClicked : function(e, originalEvent, type, page) {
-							showRole(page);
-						}
-					});
+					$("#myModal").modal('hide');
+					showRole(1);
 				}
-			});
+			})
+		}
+		var jid;
+		function uprole(roleid) {
+			jid = roleid;
+			$.ajax({
+				Type : "post",
+				url : "showRoleByIds",
+				data : {
+					jid : roleid,
+				},
+				dataType : "json",
+				success : function(da) {
+					$("#myModal1").modal('show');
+					$("#rolename1").val(da.juesename);
+				}
+			})
 
+		}
+		function updateRole() {
+			alert(jid);
+			alert($("#rolename1").val());
+			$.ajax({
+				Type : "post",
+				url : "upRole",
+				data : {
+					jid : jid,
+					juesename : $("#rolename1").val()
+				},
+				dataType : "json",
+				success : function(da) {
+					$("#myModal1").modal('hide');
+					showRole(1);
+				}
+			})
+		}
+		function delrole(roleid) {
+			jid = roleid;
+			$("#exampleModal").modal('show');
+		}
+		function queren() {
+			$("#exampleModal").modal('hide');
+			$.ajax({
+				Type : "post",
+				url : "../showUsersByIds",
+				data : {
+					jid : jid,
+				},
+				dataType : "json",
+				success : function(da) {
+					if (da != null && da != '') {
+						$("#myModal2").modal('show');
+					} else {
+						$.ajax({
+							Type : "post",
+							url : "delRole",
+							data : {
+								jid : jid,
+							},
+							dataType : "json",
+							success : function(da) {
+								showRole(1);
+							}
+						})
+					}
+				}
+			})
+		}
+		function fenpei(roleid) {
+			jid = roleid;
+			$("#myModal3").modal('show');
+			$
+					.ajax({
+						Type : "post",
+						url : "showTrees",
+						dataType : "json",
+						success : function(da) {
+							$("#tt").empty();
+							var tr = " <tr class='bg-info text-white'><th><input class='form-check-input' type='checkbox' id='id' onclick='xuan()'></th><th>模块名称</th></tr>";
+							$("#tt").append(tr);
+							$
+									.each(
+											da,
+											function(i, n) {
+												var tr1;
+												if ((i + 1) % 2 == 0) {
+													tr1 = " <tr class='table-success'><th scope='row'><input class='form-check-input' type='checkbox' id='id"+n.qid+"' name='id' value='"+n.qid+"'></th><td>"
+															+ n.text
+															+ "</td> </tr>";
+												} else {
+													tr1 = "<tr class='table-warning'><th scope='row'><input class='form-check-input' type='checkbox' id='id"+n.qid+"' name='id'  value='"+n.qid+"'></th><td>"
+															+ n.text
+															+ "</td></tr>";
+												}
+												$('#tt').append(tr1);
+											});
+							var arr1 = document.getElementsByName('id');
+							for (var i = 0; i < arr1.length; i++) {
+								arr1[i].checked = false;
+							}
+							$.ajax({
+								Type : "post",
+								url : "showTreesById",
+								data : {
+									jid : roleid,
+								},
+								dataType : "json",
+								success : function(da) {
+									$.each(da,
+											function(i, n) {
+												document.getElementById("id"
+														+ n).checked = true;
+											});
+								}
+							})
+						}
+					})
+
+		}
+		function xuan() {
+			var arr1 = document.getElementsByName('id');
+			var i = document.getElementById("id");
+			if (i.checked == true) {
+				for (var i = 0; i < arr1.length; i++) {
+					arr1[i].checked = true;
+				}
+			} else {
+				for (var i = 0; i < arr1.length; i++) {
+					arr1[i].checked = false;
+				}
+			}
+
+		}
+		function quanxian() {
+			var arr1 = $("input[name='id']:checked");
+			var ids = [];
+			for (var i = 0; i < arr1.length; i++) {
+				ids.push(arr1[i].value);
+			}
+			$.ajax({
+				Type : "post",
+				url : "upTrees",
+				data : {
+					jid : jid,
+					quanxian : ids.join(',')
+				},
+				dataType : "json",
+				success : function(da) {
+					$("#myModal3").modal('hide');
+				}
+			})
 		}
 	</script>
 </body>
