@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.guigu.yaopin.xsr.doamin.drugType;
 import com.guigu.yaopin.xsr.doamin.emp;
 import com.guigu.yaopin.xsr.doamin.quanxian;
+import com.guigu.yaopin.xsr.doamin.rukushiti;
 import com.guigu.yaopin.xsr.doamin.users;
 import com.guigu.yaopin.xsr.doamin.xiaoshoujindu;
 import com.guigu.yaopin.xsr.service.YaopinService;
@@ -158,4 +159,24 @@ public class MyController {
          }
           return "原始输入密码错误";
      }
+     
+     @RequestMapping("rukuse_xsr")
+     public @ResponseBody Map rukuse(int yeshu,HttpSession session){
+    	 int d=15;
+    	 PageHelper.startPage(yeshu, d);  
+    	 List<rukushiti> rukuselect = im.rukuselect();
+    	 PageInfo<rukushiti> info = new PageInfo<>(rukuselect);
+  		int zonghang = (int) info.getTotal();
+  		int num = 0;
+  		if(zonghang%d==0){
+  			num=zonghang/d;
+  		}else{
+  			num=zonghang/d+1;
+  		}
+  		Map map = new HashMap();
+ 		map.put("rows",rukuselect);//存集合
+ 		map.put("total",num);//存总页数
+          return map;
+     }
+     
 }

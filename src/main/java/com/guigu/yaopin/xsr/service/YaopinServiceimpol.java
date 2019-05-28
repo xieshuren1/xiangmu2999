@@ -4,6 +4,7 @@ import com.guigu.yaopin.xsr.dao.YaopinMapper;
 import com.guigu.yaopin.xsr.doamin.drugType;
 import com.guigu.yaopin.xsr.doamin.emp;
 import com.guigu.yaopin.xsr.doamin.quanxian;
+import com.guigu.yaopin.xsr.doamin.rukushiti;
 import com.guigu.yaopin.xsr.doamin.users;
 import com.guigu.yaopin.xsr.doamin.xiaoshoujindu;
 
@@ -86,5 +87,11 @@ public class YaopinServiceimpol implements YaopinService {
 	public int upemp(emp em) {
 		int upemp = dao.upemp(em);
 		return upemp;
+	}
+
+	@Override
+	public List<rukushiti> rukuselect() {
+		List<rukushiti> rukuselect = dao.rukuselect();
+		return rukuselect;
 	}
 }

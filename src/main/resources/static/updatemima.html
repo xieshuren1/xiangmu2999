@@ -16,6 +16,8 @@
     <!-- Core stylesheets -->
     <link rel="stylesheet" href="wenjian2/css/ui-elements/card.css">
     <link rel="stylesheet" href="wenjian2/css/style.css">
+    <script type="text/javascript" src="lsx/js_lsx/alert.js"></script>
+	<link rel="stylesheet" href="lsx/css_lsx/alert.css" />
 <body>
 					<div class="card form" id="form3">
                         <div class="card-header">
@@ -76,6 +78,38 @@
 			$("#cuowu3").html("");
 		}
 		
+		   $.ajax({
+		         url:"updatemima",
+		         data:{
+		        	 passwordm:$("#ypwd").val(),
+		        	 passwo:$("#pwd1").val()
+		         },
+		         dataType : "text",
+		         success:function(da){
+		        	if(da=="1"){
+		        		$("#ypwd").val("");
+		        		$("#pwd1").val("");
+		        		$("#pwd2").val("");
+		        		$("#cuowu1").html("");
+		        		$("#cuowu2").html("");
+		        		$("#cuowu3").html("");
+		        		var ddd = jqueryAlert({
+							'content' : '修改成功',
+							'width' :'350px',
+							'height' :'100px',
+							'modal' : true,
+							'buttons' : {
+								'确定' : function() {
+									ddd.close();
+								}
+							}
+						})
+		        	}else{
+		        		$("#cuowu1").html("原密码输入错误");
+		        	}
+		         }
+		         
+			 })
 		
 	}
 		

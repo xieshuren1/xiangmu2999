@@ -63,5 +63,9 @@
     	update emp set age=#{age},phone=#{phone} where uid=#{uid}
     </update>
     
+    <select id="rukuselect" resultType="com.guigu.yaopin.xsr.doamin.rukushiti">
+    	select a.gsid,b.suppliername,d.durgname,d.durgbarcode,c.num,c.financialdate,e.empname from gostock a,supplier b,financial c,durg d,emp e
+ 		where a.sid=b.supplierid and a.fid=c.financialid and c.did=d.durgid and c.eid=e.empid ORDER BY a.gsid desc
+    </select>
     
 </mapper>

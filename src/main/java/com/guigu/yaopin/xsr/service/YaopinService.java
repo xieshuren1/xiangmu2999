@@ -3,6 +3,7 @@ package com.guigu.yaopin.xsr.service;
 import com.guigu.yaopin.xsr.doamin.drugType;
 import com.guigu.yaopin.xsr.doamin.emp;
 import com.guigu.yaopin.xsr.doamin.quanxian;
+import com.guigu.yaopin.xsr.doamin.rukushiti;
 import com.guigu.yaopin.xsr.doamin.users;
 import com.guigu.yaopin.xsr.doamin.xiaoshoujindu;
 
@@ -33,4 +34,6 @@ public interface YaopinService {
     String chajuese(int jid);//查询角色
     
     int upemp(emp em);//修改员工表
+    
+    List<rukushiti> rukuselect();//入库查询
 }
