@@ -144,6 +144,9 @@
       </if>
     </trim>
   </insert>
+  <insert id="addRole" parameterType="String" >
+  	insert into juese (juesename )values (#{juesename,jdbcType=VARCHAR})
+  </insert>
   <select id="countByExample" parameterType="com.guigu.yaopin.dyj.pojo.JueseExample" resultType="java.lang.Integer" >
     select count(*) from juese
     <if test="_parameter != null" >
@@ -190,8 +193,12 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.guigu.yaopin.dyj.pojo.Juese" >
     update juese
-    set juesename = #{juesename,jdbcType=VARCHAR},
-      quanxian = #{quanxian,jdbcType=VARCHAR}
+    set quanxian = #{quanxian,jdbcType=VARCHAR}
+    where jid = #{jid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey1" parameterType="com.guigu.yaopin.dyj.pojo.Juese" >
+    update juese
+    set juesename = #{juesename,jdbcType=VARCHAR}
     where jid = #{jid,jdbcType=INTEGER}
   </update>
 </mapper>

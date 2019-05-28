@@ -24,36 +24,75 @@ $(function() {
 						var ypsize=$('#khtell1').val();
 						var ypdw=$('#khdz1').val();
 						var ypjj=$('#bz1').val();
-						$.ajax({
-							url:'addsConsumer1s',
-							data:{
-								consumerid:1,
-								consumername:ypname,
-								consumercontacts:ypcode,
-								consumerphone:ypsize,
-								address:ypdw,
-								remarks:ypjj,
-							},
-							success : function(du) {
-								findConsumer();
-							
-								if(du>0){
-									var ddd1 = jqueryAlert({
-										'content' : '新增成功！！！！',
-										'width' :'350px',
-										'height' :'120px',
-										'modal' : true,
-										'buttons' : {
-											'确定' : function() {
-												ddd1.close();
+						if(ypname==''){
+							jqueryAlert({
+								'content' : '姓名不能为空哦！',
+								'width' :'300px',
+								'height' :'100px',
+								'modal' : true,
+							})
+						}else if(ypcode==''){
+							jqueryAlert({
+								'content' : '联系人不能为空哦！',
+								'width' :'300px',
+								'height' :'100px',
+								'modal' : true,
+							})
+						}else if(!(/^1(3|4|5|7|8)\d{9}$/.test(ypsize))){
+							jqueryAlert({
+								'content' : '请填写正确的号码！！',
+								'width' :'300px',
+								'height' :'100px',
+								'modal' : true,
+							})
+						}else if (ypsize==''){
+							jqueryAlert({
+								'content' : '电话号码不能为空哦！！',
+								'width' :'300px',
+								'height' :'100px',
+								'modal' : true,
+							})
+						}else if(ypdw==''){
+							jqueryAlert({
+								'content' : '地址不能为空哦！！',
+								'width' :'300px',
+								'height' :'100px',
+								'modal' : true,
+							})
+						}else{
+							$.ajax({
+								url:'addsConsumer1s',
+								data:{
+									consumerid:1,
+									consumername:ypname,
+									consumercontacts:ypcode,
+									consumerphone:ypsize,
+									address:ypdw,
+									remarks:ypjj,
+								},
+								success : function(du) {
+									findConsumer();
+								
+									if(du>0){
+										var ddd1 = jqueryAlert({
+											'content' : '新增成功！！！！',
+											'width' :'350px',
+											'height' :'120px',
+											'modal' : true,
+											'buttons' : {
+												'确定' : function() {
+													ddd1.close();
+												}
 											}
-										}
-									})
-									ddd4.close();
+										})
+										ddd4.close();
+									}
 								}
-							}
-							
-						})
+								
+							})
+						}
+						
+						
 					},
 		 '取消' : function() {
 			 ddd4.close();
@@ -133,6 +172,7 @@ $(function() {
  				'modal' : true,
  				'buttons' : {
  					'确定' : function() {
+ 						
  						$.ajax({
  							 url:'delConsumers',
  							 data:{

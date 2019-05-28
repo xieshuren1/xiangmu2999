@@ -19,7 +19,7 @@ public interface JueseMapper {
     int insert(Juese record);
 
     int insertSelective(Juese record);
-
+    int addRole(String juesename);
     List<Juese> selectByExample(JueseExample example);
     List<Juese> showRole(JueseQuervo vo);
     int count(JueseQuervo vo);
@@ -32,4 +32,5 @@ public interface JueseMapper {
     int updateByPrimaryKeySelective(Juese record);
 
     int updateByPrimaryKey(Juese record);
+    int updateByPrimaryKey1(Juese record);
 }
