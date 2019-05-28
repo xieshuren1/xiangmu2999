@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.guigu.yaopin.hjh.dao.DurgMapper;
 import com.guigu.yaopin.hjh.dao.GostockMapper;
+import com.guigu.yaopin.hjh.dao.OrderdurgMapper;
 import com.guigu.yaopin.hjh.dao.SellMapper;
 import com.guigu.yaopin.hjh.entity.Gostock;
 import com.guigu.yaopin.hjh.entity.QueryVo;
@@ -16,11 +17,10 @@ import com.guigu.yaopin.hjh.entity.QueryVo;
 @SpringBootTest
 public class Xiangmu2ApplicationTests {
 	@Autowired
-	SellMapper d;
+	private OrderdurgMapper o;
     @Test
     public void contextLoads() {
-    	
-    	System.out.println(d.getsellid(5));
+    
     }
 
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="easyui/jquery.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<script src="easyui/jquery.easyui.min.js" type="text/javascript"
+	charset="utf-8"></script>
+<link rel="stylesheet" type="text/css"
+	href="easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css" />
+<script src="easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"
+	charset="utf-8"></script>
+</head>
+<body>
+	<div class="container">
+		<p class="form-inline">
+
+			<input type="text" class="form-control" placeholder="药品名称" id="input" />&nbsp;
+			<button type="button" class="btn btn-primary" data-toggle="button"
+				onclick="orders()" id="b">查询药物</button>
+			<button type="button" class="btn btn-primary" data-toggle="button"
+				onclick="user.rk()">药物入库</button>
+
+		</p>
+		<table id="order"></table>
+	</div>
+</body>
+<script type="text/javascript" src="hjhjs/order.js">
+	
+</script>
+</html>

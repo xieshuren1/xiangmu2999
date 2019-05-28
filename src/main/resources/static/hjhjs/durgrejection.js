@@ -89,6 +89,7 @@ var yes = 1;
 			title : "采购退货",
 			modal : true,
 			closed : true,
+			width:200,
 			buttons : [ {
 				text : "確定",
 				handler : function() {

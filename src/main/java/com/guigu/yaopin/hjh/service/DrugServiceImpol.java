@@ -24,13 +24,14 @@ public class DrugServiceImpol implements DrugService {
 	private FinancialMapper fc;
 	@Autowired
 	private GostockMapper gk;
+	@Autowired
+	private OrderdurgMapper o;
 
 //查詢藥品類型
 	@Override
 	public List<Drugtype> drugtype() {
 		DrugtypeExample e = new DrugtypeExample();
 		List<Drugtype> drugtypes = dt.selectByExample(e);
-	
 
 		return drugtypes;
 	}
@@ -55,7 +56,7 @@ public class DrugServiceImpol implements DrugService {
 //藥品采購
 	@Transactional
 	@Override
-	public int updateByPrimaryKeySelective(Stock s, Financial f, int supplierid,String format) {
+	public int updateByPrimaryKeySelective(Stock s, Financial f, int supplierid, String format, int oid) {
 		try {
 			// 根据药品id查询出stock对象
 			Stock stockdid = st.stockdid(s.getDid());
@@ -68,13 +69,15 @@ public class DrugServiceImpol implements DrugService {
 			// 如果查询的对象为空那么则把药品插入库存表
 //			反之则修改库存
 			if (stockdid == null) {
-
+				s.setMinstock((int)(s.getStocknum()*2)/10);
 				return st.insertSelective(s);
 
 			} else {
 
 				stockdid.setStocknum(stockdid.getStocknum() + s.getStocknum());
-
+				stockdid.setMinstock((int)(stockdid.getStocknum()*2)/10);
+				
+				o.deleteByPrimaryKey(oid);
 				return st.updateByPrimaryKeySelective(stockdid);
 
 			}
@@ -97,7 +100,7 @@ public class DrugServiceImpol implements DrugService {
 	@Override
 	public int selectdurgnamecount(QueryVo tyid) {
 		// TODO Auto-generated method stub
-		
+
 		return dr.selectdurgnamecount(tyid);
 	}
 
