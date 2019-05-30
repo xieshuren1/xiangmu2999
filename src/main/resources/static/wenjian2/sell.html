@@ -35,6 +35,9 @@
 
 		</table>
 	</div>
+	<div style="text-align: center;width: 90%;">
+		<font id="h"></font>/<font id="h1"></font>
+	</div>
 	<div class="col-md-12 seventh-button mt-5" align="center"
 		style="width: 100%;" id="mydiv">
 		<!-- <a class="btn btn-boxs btn-1" href="findQueryVO">首页</a> <a
@@ -99,7 +102,9 @@
 							$("#mydiv").empty();
 							var shang=(page-1)<=0?1:(page-1);
 							var xia=(page+1)>da.total?da.total:(page+1);
-							var tr2="<a class='btn btn-boxs btn-1' href='javascript:show(1)'>首页</a> <a class='btn btn-boxs btn-3' href='javascript:show("+shang+")'>上一页</a> <a class='btn btn-boxs btn-4' href='javascript:show("+xia+")'>下一页</a><a class='btn btn-boxs btn-5' href='javascript:show("+da.total+")'>尾页</a>";
+							$("#h").text(page);
+							$("#h1").text(da.total);
+							var tr2="<a class='btn btn-boxs btn-1' href='javascript:show(1)'>首页</a> <a class='btn btn-boxs btn-3' href='javascript:show("+shang+")'>上一页</a><a class='btn btn-boxs btn-4' href='javascript:show("+xia+")'>下一页</a><a class='btn btn-boxs btn-5' href='javascript:show("+da.total+")'>尾页</a>";
 							$("#mydiv").append(tr2);
 						}
 					});
