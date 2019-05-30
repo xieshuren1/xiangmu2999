@@ -142,10 +142,6 @@ $(function() {
 			if (rows.length > 1) {
 				$.messager.alert('警告操作', '编辑记录只能选定一条数据！', 'warning');
 			} else if (rows.length == 1) {
-				alert(rows[0].odnumber);
-				alert(rows[0].d.durgid);
-				alert(rows[0].odmoney);
-				alert(rows[0].s.supplierid);
 				$.ajax({
 					url : "durgadd",
 					type : "post",

@@ -114,7 +114,6 @@
 		      </div>
 		    </div>
 		  </div>
-			
 </body>
 
  <!--Global Javascript -->
@@ -202,7 +201,7 @@ function mo(name,sykc,jinjia,shouchu,zongxiaoshou){
 		   					" <div class='text-left report1-cont'>"+
 		   					"<h2 class='font-light m-b-0'><i class='ti-arrow-up text-success'></i>"+
 		   					"<font style='vertical-align: inherit;'><font id='font_qian"+i+"' style='vertical-align: inherit;'> $ 9,220</font>"+
-		   					"&nbsp;&nbsp;  &nbsp;&nbsp;  <font size='3'>单位(<font id='hemoeny"+i+"'></font>/盒)</font></font></h2>"+
+		   					"&nbsp;<font id='tupian"+i+"'></font> &nbsp;&nbsp;&nbsp;  <font size='3'>单位(<font id='hemoeny"+i+"'></font>/盒)</font></font></h2>"+
 		   					"<span class='text-muted'><font style='vertical-align: inherit;'><font id='font"+i+"' style='vertical-align: inherit;color: "+colo+";'>1</font></font></span>  </div>"+
 		   					"<span class='text-success'><font style='vertical-align: inherit;'><font id='jindu_"+i+"' style='vertical-align: inherit;color:"+colo+"'>80％</font></font></span>"+
 		   					"<div class='progress'>"+
@@ -215,7 +214,11 @@ function mo(name,sykc,jinjia,shouchu,zongxiaoshou){
 		   				var dd=((da.rows[i].num/d).toFixed(2))*100+"%";
 		   				$("#jindu_"+i).html(dd);
 		   				$("#tiaoza"+i).css("width",dd);
-		   				$("#hemoeny"+i).html("￥"+da.rows[i].durgprice);		   				
+		   				$("#hemoeny"+i).html("￥"+da.rows[i].durgprice);		   
+		   				//<img src='wenjian_xsr/img_xsr/jingshi.PNG' style='width:20px;height:20px;' />
+		   				if((da.rows[i].stocknum+da.rows[i].num)*0.2>da.rows[i].stocknum){
+		   					$("#tupian"+i).html("<img src='wenjian_xsr/img_xsr/jingshi.PNG' style='width:20px;height:20px;' />");
+		   				}
 		   		} 
 		   		$("#xialakuang").html("<button class='dropdown-item' onclick=xuanlei('所有类型') >所有类型</button>");
 		   		for(a=0;a<da.yaoclass.length;a++){
