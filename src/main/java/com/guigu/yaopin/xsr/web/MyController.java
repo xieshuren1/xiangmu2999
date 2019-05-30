@@ -53,13 +53,13 @@ public class MyController {
 			users user = im.login_xsr(us);
 			session.setAttribute("user_us", user);
 			session.setAttribute("user_usid", user.getUserid());
-			/* im.logintime(user.getUserid()); */
-			/*
-			 * String selectlotime = im.selectlotime(user.getUserid());
-			 * if(selectlotime==null) { selectlotime="第一次登录"; }
-			 * 
-			 * session.setAttribute("logindate",selectlotime);
-			 */
+			 im.logintime(user.getUserid()); 
+			
+			  String selectlotime = im.selectlotime(user.getUserid());
+			  if(selectlotime==null) { selectlotime="第一次登录"; }
+			  
+			  session.setAttribute("logindate",selectlotime);
+			 
 			return "1";
 		} catch (Exception e) {
 			e.printStackTrace();
