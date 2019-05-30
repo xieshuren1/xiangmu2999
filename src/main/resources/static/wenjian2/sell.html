@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="shortcut icon" href="img/favicon.ico">
+
+<!-- global stylesheets -->
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed"
+	rel="stylesheet">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/font-icon-style.css">
+<link rel="stylesheet" href="css/style.default.css"
+	id="theme-stylesheet">
+
+<!-- Core stylesheets -->
+<link rel="stylesheet" href="css/ui-elements/button.css">
+</head>
+<body>
+	<div class="form-inline"
+		style="text-align: center;width: 90%;margin-left: 120px;">
+		<label for="name">客户名称：</label> <input type="text"
+			class="form-control" id="consumername" placeholder="客户名称">
+		<label for="name">药品名称：</label> <input type="text"
+			class="form-control" id="durgname" placeholder="药品名称">
+		<label for="name">操作员：</label> <input type="text"
+			class="form-control" id="empname" placeholder="操作员">
+		<button class="btn btn-primary" onclick="show(1)" style="text-align: center;margin-left: 0px;margin-top: 35px;">查询</button>
+	</div>
+	<div style="height: 500px;margin-top: 0px;">
+		<table class="table table-hover" id="nt" style="text-align: center;">
+
+
+		</table>
+	</div>
+	<div style="text-align: center;width: 90%;">
+		<font id="h"></font>/<font id="h1"></font>
+	</div>
+	<div class="col-md-12 seventh-button mt-5" align="center"
+		style="width: 100%;" id="mydiv">
+		<!-- <a class="btn btn-boxs btn-1" href="findQueryVO">首页</a> <a
+			class="btn btn-boxs btn-3">上一页</a> <a class="btn btn-boxs btn-4">下一页</a>
+		<a class="btn btn-boxs btn-5">尾页</a> -->
+	</div>
+		<script src="js/jquery.min.js"></script>
+	<script src="js/popper/popper.min.js"></script>
+	<script src="js/tether.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/chart.min.js"></script>
+	<script src="js/front.js"></script>
+	<!-- <link rel="stylesheet" href="3.5js/bootstrap.min.css" /> -->
+	<link rel="stylesheet" href="../wenjian_dyj/css/bootstrap.min.css" />
+	<script type="text/javascript" src="../wenjian_dyj/js/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="../wenjian_dyj/js/bootstrap-paginator.js"></script>
+	<script type="text/javascript">
+		show(1);
+		function show(page) {
+			$.ajax({
+						url : "findQueryVO",
+						data : {
+							page : page,
+							consumername:$("#consumername").val(),
+							durgname:$("#durgname").val(),
+							empname:$("#empname").val()
+						},
+						dataType : "json",
+						success : function(da) {
+							$("#nt").empty();
+							var tr = "<tr class='bg-info text-white' style='text-align: center;'><th>退货单号</th><th>销售单号</th><th>客户名称</th><th>药品名称</th><th>药品产地</th><th>退货日期</th><th>操作员</th><th>退货数量</th><th>退货金额</th></tr>";
+							$("#nt").append(tr);
+							for (i = 0; i < da.rows.length; i++) {
+								var c = "";
+								if ((i + 1) % 2 == 0) {
+									c = "table-success";
+								} else {
+									c = "table-white";
+								}
+								var tr1 = "<tr class='"+c+"' style='text-align: center;'><th scope='row'>"
+										+ da.rows[i].r.rgid
+										+ "</th><td>"
+										+ da.rows[i].s.sellid
+										+ "</td><td>"
+										+ da.rows[i].c.consumername
+										+ "</td><td>"
+										+ da.rows[i].d.durgname
+										+ "</td><td>"
+										+ da.rows[i].d.manufacturer
+										+ "</td><td>"
+										+ da.rows[i].f.financialdate
+										+ "</td><td>"
+										+ da.rows[i].e.empname
+										+ "</td><td>"
+										+ da.rows[i].f.num
+										+ "</td><td>"
+										+ da.rows[i].f.financialmoney + "</td></tr>";
+								$("#nt").append(tr1);
+							}
+							$("#mydiv").empty();
+							var shang=(page-1)<=0?1:(page-1);
+							var xia=(page+1)>da.total?da.total:(page+1);
+							$("#h").text(page);
+							$("#h1").text(da.total);
+							var tr2="<a class='btn btn-boxs btn-1' href='javascript:show(1)'>首页</a> <a class='btn btn-boxs btn-3' href='javascript:show("+shang+")'>上一页</a><a class='btn btn-boxs btn-4' href='javascript:show("+xia+")'>下一页</a><a class='btn btn-boxs btn-5' href='javascript:show("+da.total+")'>尾页</a>";
+							$("#mydiv").append(tr2);
+						}
+					});
+
+		}
+	</script>
+</body>
+</html>
